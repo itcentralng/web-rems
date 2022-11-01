@@ -1,13 +1,97 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  /*=====color variables =====*/
+  --blue_alt: #022873;
+  --blue_alt-02: #052959;
+  --blue_light: #95a7bf;
+  --success: #28e093;
+  --danger: #730202;
+  --rgb: rgba(0, 0, 0, 0.5);
+  --border: 1.5px solid var(--blue_light);
+  --white: #fff;
+  --white_alt: #f3f2f2;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/*===== general styling =====*/
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Work Sans", sans-serif;
+  border: none;
+  outline: none;
+  list-style: none;
+  text-decoration: none;
+}
+
+::selection {
+  background-color: var(--blue_alt);
+  color: var(--white);
+}
+
+/*===== html size =====*/
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+/*===== media queries =====*/
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 55%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  html {
+    font-size: 55%;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  html {
+    font-size: 50%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 45%;
+  }
+}
+
+/*===== body styling =====*/
+body {
+  width: 100vw;
+  height: 100vh;
+  background: var(--white);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+}
+
+a {
+  color: unset;
+  text-transform: capitalize;
+}
+
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: var(--blue_alt);
+  margin-bottom: 2rem;
 }

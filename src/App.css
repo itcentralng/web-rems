@@ -1,38 +1,112 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app {
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+.nav-side {
+  max-width: 30rem;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.left-container {
+  flex: 1;
+  height: 100%;
+  position: relative;
+}
+
+.nav-right_container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 6rem;
+  z-index: 1;
+}
+
+.nav-right_container .nav-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+.open {
+  position: absolute;
+  display: none;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.open .open-icon {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.main-side {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 2rem;
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.main-side::-webkit-scrollbar {
+  width: 0.7rem;
+}
+
+.main-side::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+.main-side::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  background-color: var(--blue_alt-02);
+}
+
+.main-side .main-side_top {
+}
+
+.nav-side .close {
+  cursor: pointer;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.close .close-icon {
+  font-size: 2.5rem;
+  color: black;
+}
+
+@media screen and (max-width: 1000px) {
+  .nav-side .close,
+  .open {
+    display: flex;
   }
-  to {
-    transform: rotate(360deg);
+
+  .nav-side {
+    position: fixed;
+    z-index: 5;
+    left: -100%;
+    transition: 0.3s cubic-bezier(0.77, 0, 0.175, 1);
+    background-color: var(--white);
+    border-right: var(--border);
+  }
+
+  .nav-side.showNav {
+    left: 0;
   }
 }

@@ -1,0 +1,74 @@
+.right-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 5rem;
+}
+
+.right-nav .input-container {
+  display: flex;
+  align-items: center;
+  border: var(--border);
+  background-color: var(--white);
+  border-radius: 20px;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  height: 100%;
+  width: 54rem;
+  padding: 0 0 0 2rem;
+}
+
+.input-container > .search-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.input-container > input {
+  width: 100%;
+  height: 100%;
+  padding: 0 1.5rem;
+  color: var(--blue_alt);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.input-container > input::placeholder {
+  color: var(--blue_light);
+  font-weight: 500;
+}
+
+.button {
+  max-width: 17rem;
+  width: 100%;
+  height: 100%;
+  padding: 0.8rem 2.3rem;
+  border: 2px solid var(--blue_alt);
+  background-color: var(--blue_alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.button > span {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.button > .button-text {
+  color: var(--white);
+  text-transform: capitalize;
+  font-size: 1.3rem;
+}
+
+.button.ghost {
+  background-color: var(--white);
+  border-color: var(--blue_light);
+}
+
+.button.ghost > .button-text {
+  color: var(--blue_alt);
+  font-weight: 600;
+}

@@ -1,0 +1,36 @@
+.tr--container {
+  background-color: var(--white);
+}
+.tr--container > td {
+  padding: 2.4rem;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--blue_alt-02);
+}
+.tr--container:nth-child(even) {
+  background-color: rgba(2, 40, 115, 0.05);
+}
+.tr--container .table--amount {
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+.tr--container .status {
+  color: var(--success);
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+.tr--container .due--status {
+  color: var(--danger);
+}
+.tr--container button {
+  background-color: var(--blue_alt);
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--white);
+  padding: 1rem 2.8rem;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+.tr--container button:hover {
+  background-color: var(--blue_alt);
+}

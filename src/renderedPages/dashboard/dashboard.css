@@ -1,0 +1,44 @@
+.tenancy--info {
+  width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 5rem;
+  gap: 3.2rem;
+}
+.card-icon {
+  width: 9.8rem;
+  height: 9.8rem;
+  margin: 0 auto;
+}
+.card-name {
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: var(--blue_alt-02);
+  margin-top: 3rem;
+  margin-bottom: 4.6rem;
+}
+.card-amount {
+  font-size: 3.8rem;
+  font-weight: 500;
+  color: var(--success);
+}
+.card-amount.owed {
+  color: var(--danger);
+}
+.card-amount.due {
+  color: #95a7bf;
+}
+.tenancy-data__title > h1 {
+  font-weight: 500;
+  font-size: 3.2rem;
+  color: var(--blue_alt);
+  margin-bottom: 2rem;
+}
+.listing-data__title > h1 {
+  font-weight: 500;
+  font-size: 3.2rem;
+  color: var(--blue_alt);
+  margin-top: 3.5rem;
+  margin-bottom: 3.5rem;
+}
