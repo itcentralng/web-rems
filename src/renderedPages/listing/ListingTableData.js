@@ -2,9 +2,8 @@ import "./tr.css";
 import DummyData from "../../DashboardData2";
 // import { Fragment } from "react";
 const ListingTableRow = () => {
-  console.log(DummyData);
   return (
-    <tbody className="body">
+    <tbody className="tbody">
       {DummyData.map((data) => (
         <tr key={data._id} className="tr--container">
           <td data-label="S/N">{data._id}</td>
