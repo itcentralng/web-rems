@@ -40,3 +40,9 @@
 .card p.bold {
   font-weight: 700;
 }
+.empty_list {
+  font-size: 3.7rem;
+  margin-left: 6rem;
+  color: var(--blue_alt-02);
+  font-weight: 500;
+}
