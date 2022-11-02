@@ -34,6 +34,30 @@ const AddProperty = () => {
             src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
           />
         </div>
+        <div className="image-container">
+          <img
+            alt="img"
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+          />
+        </div>
+        <div className="image-container">
+          <img
+            alt="img"
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+          />
+        </div>
+        <div className="image-container">
+          <img
+            alt="img"
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+          />
+        </div>
+        <div className="image-container">
+          <img
+            alt="img"
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+          />
+        </div>
       </div>
 
       <div className="details-container">
@@ -52,39 +76,35 @@ const AddProperty = () => {
           <div className="content-container">
             <div className="input-container">
               <div className="input-content wide">
-                <label>input</label>
-                <input type="text" placeholder="Placeholder" />
+                <label>address</label>
+                <input
+                  type="text"
+                  placeholder="No 5, Okitipupa Cres, Bende, Abia."
+                />
               </div>
-              <select value={sortProperty} onChange={propertySorting}>
-                <option value="Duplex">Duplex</option>
-              </select>
-            </div>
-            <div className="input-container">
-              <select value={sortProperty} onChange={propertySorting}>
-                <option value="Duplex">Duplex</option>
-              </select>
-              <div className="input-content wide">
-                <label>input</label>
-                <input type="text" placeholder="Placeholder" />
+              <div className="input-content">
+                <label>unit</label>
+                <select value={sortProperty} onChange={propertySorting}>
+                  <option value="Duplex">Duplex</option>
+                </select>
               </div>
             </div>
+          </div>
+          <div className="content-container">
             <div className="input-container">
               <div className="input-content wide">
-                <label>input</label>
-                <input type="text" placeholder="Placeholder" />
+                <label>address</label>
+                <input
+                  type="text"
+                  placeholder="No 5, Okitipupa Cres, Bende, Abia."
+                />
               </div>
-              <select value={sortProperty} onChange={propertySorting}>
-                <option value="Duplex">Duplex</option>
-              </select>
-            </div>
-            <div className="input-container">
-              <div className="input-content wide">
-                <label>input</label>
-                <input type="text" placeholder="Placeholder" />
+              <div className="input-content">
+                <label>unit</label>
+                <select value={sortProperty} onChange={propertySorting}>
+                  <option value="Duplex">Duplex</option>
+                </select>
               </div>
-              <select value={sortProperty} onChange={propertySorting}>
-                <option value="Duplex">Duplex</option>
-              </select>
             </div>
           </div>
         </div>
