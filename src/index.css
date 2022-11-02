@@ -66,6 +66,7 @@ body {
   width: 100vw;
   height: 100vh;
   background: var(--white);
+  /* overflow: hidden; */
 }
 
 h1,

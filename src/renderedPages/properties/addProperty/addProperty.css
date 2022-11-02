@@ -1,31 +1,12 @@
 .property {
-  overflow-y: auto;
-  height: 100%;
-  width: 100%;
-  padding-bottom: 5rem;
-}
-
-.property::-webkit-scrollbar {
-  width: 0.5rem;
-}
-
-.property::-webkit-scrollbar-track {
-  background-color: var(--blue_alt-02);
-  border-radius: 1.5rem;
-}
-
-.property::-webkit-scrollbar {
-  background-color: #f5f5f5;
+  display: inline-block;
 }
 
 .property .image-row {
-  height: 22rem;
-  overflow-x: scroll;
-  display: flex;
-  gap: 2rem;
-  padding: 1rem;
+  white-space: nowrap;
 }
 
+/* 
 .image-row > .image-container {
   min-width: 24rem;
   width: 100%;
@@ -104,8 +85,7 @@ select {
   color: #242134;
   padding: 1rem 2rem;
   border: 1px solid #dad9e1;
-  /* background-color: var(--white); */
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
-}
+} */

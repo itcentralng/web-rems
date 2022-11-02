@@ -2,7 +2,6 @@ import "./tr.css";
 import DummyData from "../../DashboardData";
 // import { Fragment } from "react";
 const TableRow = () => {
-  console.log(DummyData);
   return (
     <tbody className="body">
       {DummyData.map((data) => (
@@ -21,7 +20,7 @@ const TableRow = () => {
             {data.status}
           </td>
           <td>
-            <button>View</button>
+            <td>View</td>
           </td>
         </tr>
       ))}
