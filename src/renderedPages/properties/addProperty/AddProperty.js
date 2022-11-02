@@ -71,6 +71,15 @@ const AddProperty = () => {
                 <option value="Duplex">Duplex</option>
               </select>
             </div>
+            <div className="input-container">
+              <div className="input-content">
+                <label></label>
+                <input type="text" placeholder="Placeholder" />
+              </div>
+              <select value={sortProperty} onChange={propertySorting}>
+                <option value="Duplex">Duplex</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
