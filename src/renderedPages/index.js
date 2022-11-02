@@ -1,7 +1,8 @@
 import Dashboard from "./dashboard/Dashboard";
 import Agents from "./agents/Agents";
 import Archives from "./archives/Archives";
-import Listing from "./listing/Listing";
 import Properties from "./properties/Properties";
+import Tenants from "./tenants/Tenants";
+import Listing from "./listing/Listing";
 
-export { Dashboard, Listing, Archives, Agents, Properties };
+export { Dashboard, Listing, Archives, Agents, Properties, Tenants };

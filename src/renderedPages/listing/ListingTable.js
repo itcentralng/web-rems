@@ -1,7 +1,7 @@
 import "./table.css";
-import TableRow from "./TenancyTableData";
+import ListingTableRow from "./ListingTableData";
 
-const TenancyTable = (props) => {
+const ListingTable = (props) => {
   return (
     <div className='table'>
       <table className='table-container'>
@@ -13,14 +13,12 @@ const TenancyTable = (props) => {
             <th scope='col'>{props.col3}</th>
             <th scope='col'>{props.col4}</th>
             <th scope='col'>{props.col5}</th>
-            <th scope='col'></th>
           </tr>
         </thead>
-        <TableRow />
+        <ListingTableRow />
       </table>
-      <span className='more'>See More</span>
     </div>
   );
 };
 
-export default TenancyTable;
+export default ListingTable;

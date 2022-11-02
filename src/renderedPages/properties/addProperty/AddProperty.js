@@ -18,32 +18,20 @@ const AddProperty = () => {
       <div className='image-row'>
         <div className='image-container'>
           <img
+            alt='img'
             src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
-            alt='unsplash'
           />
         </div>
         <div className='image-container'>
           <img
+            alt='img'
             src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
-            alt='unsplash'
           />
         </div>
         <div className='image-container'>
           <img
+            alt='img'
             src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
-            alt='unsplash'
-          />
-        </div>
-        <div className='image-container'>
-          <img
-            src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
-            alt='unsplash'
-          />
-        </div>
-        <div className='image-container'>
-          <img
-            src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
-            alt='unsplash'
           />
         </div>
       </div>
@@ -63,8 +51,35 @@ const AddProperty = () => {
         <div className='content'>
           <div className='content-container'>
             <div className='input-container'>
-              <div className='input-content'>
-                <label></label>
+              <div className='input-content wide'>
+                <label>input</label>
+                <input type='text' placeholder='Placeholder' />
+              </div>
+              <select value={sortProperty} onChange={propertySorting}>
+                <option value='Duplex'>Duplex</option>
+              </select>
+            </div>
+            <div className='input-container'>
+              <select value={sortProperty} onChange={propertySorting}>
+                <option value='Duplex'>Duplex</option>
+              </select>
+              <div className='input-content wide'>
+                <label>input</label>
+                <input type='text' placeholder='Placeholder' />
+              </div>
+            </div>
+            <div className='input-container'>
+              <div className='input-content wide'>
+                <label>input</label>
+                <input type='text' placeholder='Placeholder' />
+              </div>
+              <select value={sortProperty} onChange={propertySorting}>
+                <option value='Duplex'>Duplex</option>
+              </select>
+            </div>
+            <div className='input-container'>
+              <div className='input-content wide'>
+                <label>input</label>
                 <input type='text' placeholder='Placeholder' />
               </div>
               <select value={sortProperty} onChange={propertySorting}>

@@ -1,8 +1,8 @@
 import "./dashboard.css";
 import RightNav from "../../component/rightNav/RightNav";
-import TenancyTable from "../../items/table/TenancyTable";
 import Card from "../../component/UI/Card";
 import tenancyInfo from "./TenancyDetails";
+import { TenancyTable } from "../../items";
 
 const Dashboard = () => {
   return (

@@ -1,3 +1,3 @@
-import Table from "./table/TenancyTable";
+import TenancyTable from "./table/TenancyTable";
 
-export { Table };
+export { TenancyTable };
