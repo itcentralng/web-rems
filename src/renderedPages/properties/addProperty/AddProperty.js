@@ -11,82 +11,54 @@ const AddProperty = () => {
 
   const addProperty = (e) => {
     e.preventDefault();
-    createProperty(property)
-    setProperty({name:'', address:'', state:'', lga:'', agent_id:0, images: []})
+    if (property.name && property.address && property.state && property.lga && property.agent_id) {
+      createProperty(property);
+      setProperty({name:'', address:'', state:'', lga:'', agent_id:0, images: ['']})
+    }
 
   };
 
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-    });
+  //  image file handle
+  const handleImageFile = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setProperty({...property, images: [reader.result]});
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   return (
     propertyLoading ? <h1 className='title'>Adding Property Please wait....</h1> :
     <div className='property'>
-      <div className='top-header'>
+      {/* <div className='top-header'>
         <span></span>
         <RightNav button buttonText='Add Property' onClick={addProperty} />
-      </div>
-      {/* <div className='image-row'>
-        <div className='image-container'>
-          <img
-            alt='img'
-            src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
-          />
-        </div>
-        <div className='image-container'>
-          <img
-            alt='img'
-            src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
-          />
-        </div>
-        <div className='image-container'>
-          <img
-            alt='img'
-            src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
-          />
-        </div>
-        <div className='image-container'>
-          <img
-            alt='img'
-            src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
-          />
-        </div>
-        <div className='image-container'>
-          <img
-            alt='img'
-            src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
-          />
-        </div>
-        <div className='image-container'>
-          <img
-            alt='img'
-            src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
-          />
-        </div>
-        <div className='image-container'>
-          <img
-            alt='img'
-            src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvcGVydHl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
-          />
-        </div>
       </div> */}
 
       <div className='details-container'>
-        {/* <button className='button'>
-          <div className='button-text'>Edit Photos</div>
-        </button> */}
-        {/* <div className='header'>
-          <div className='status'>
-            Agent status <span></span>
+      <div className="img_input">
+          <div className="image-container">
+            <img
+              src={property.images[0]}
+              alt={property.name}
+              id='img'
+              className="propertyImg"
+            />
           </div>
-          <div className='status'>
-            Rent status <span></span>
-          </div>
-        </div> */}
+          <input
+            type='file'
+            name='image'
+            id='image'
+            className="inputFile"
+            accept='image/*'
+            onChange={handleImageFile}
+          />
+          <label htmlFor='image' className="img_upload">
+            Choose Photo
+          </label>
+        </div>
 
         <div className='content'>
           <div className='input-content'>
@@ -98,13 +70,6 @@ const AddProperty = () => {
                 value={property.name}
                 onChange={(e) => setProperty({...property, name: e.target.value})}
               />
-          </div>
-
-          <div className='input small'>
-            <label>Photo</label>
-            <input type='file'
-              onChange={(e) => setProperty({...property, images: [...property.images, e.target.files[0]]})}
-            />
           </div>
 
           <div className='input small'>
@@ -132,7 +97,10 @@ const AddProperty = () => {
               onChange={(e) => setProperty({...property, address: e.target.value})}
             />
           </div>
+          </div>
 
+          
+          <div className='input-content'>
           <div className='input small'>
             <label>Agent</label>
             <select value={property.agent_id} onChange={(e) => setProperty({...property, agent_id: e.target.value})}>
@@ -149,6 +117,12 @@ const AddProperty = () => {
             </select>
           </div>
           </div>
+          <div className='input-content'>
+          <div className='input small'>
+          <button className={'submit'} onClick={addProperty}>Add Property</button>
+          </div>
+          </div>
+
         </div>
       </div>
     </div>
