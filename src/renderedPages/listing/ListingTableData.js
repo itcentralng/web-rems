@@ -1,21 +1,29 @@
 import "./tr.css";
 import DummyData from "../../DashboardData2";
 import {useGetPropertyListingQuery} from "../properties/propertyApiSlice";
+import { property } from "lodash";
 const ListingTableRow = () => {
   const { data: properties, isLoading: propertiesLoading } = useGetPropertyListingQuery()
+  const calculateRent = (units) => {
+    let rent = 0;
+    units.forEach((unit) => {
+      rent += unit.annual_fee;
+    });
+    return rent;
+  };
   return (
     <tbody className="tbody">
-      {properties?.map((data, index) => (
-        <tr key={data._id} className="tr--container">
+      {properties?.map((property, index) => (
+        <tr key={property.id} className="tr--container">
           <td data-label="S/N">{index+1}</td>
-          <td data-label="Property">{data.name}</td>
-          <td data-label="Occupant">{data.state}</td>
-          <td data-label="Due date">{data.units}</td>
-          <td data-label="Amount" className={`status`}>
-            {data.status}
+          <td data-label="Property">{property.name}</td>
+          <td data-label="State">{property.state}</td>
+          <td data-label="Units">{property.units.length}</td>
+          <td data-label="Status" className={`status`}>
+            {property.status}
           </td>
-          <td data-label="Status" className="table--amount ">
-            {data.rent}
+          <td data-label="Rent" className="table--amount ">
+            {calculateRent(property.units)}
           </td>
         </tr>
       ))}
