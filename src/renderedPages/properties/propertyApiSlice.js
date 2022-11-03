@@ -6,6 +6,14 @@ const apiSliceWithTags = apiSlice.enhanceEndpoints({
 
 const propertyApiSlice = apiSliceWithTags.injectEndpoints({
   endpoints: (builder) => ({
+    createProperty: builder.mutation({
+      query: (values) => ({
+        url: "/property",
+        method: "POST",
+        body: { ...values },
+      }),
+      invalidatesTags: ["Property"],
+    }),
     getProperties: builder.query({
       query: () => `/properties`,
       providesTags: ["Property"],
@@ -21,4 +29,4 @@ const propertyApiSlice = apiSliceWithTags.injectEndpoints({
   }),
 });
 
-export const { useGetPropertiesQuery, useGetPropertyListingQuery, useGetSinglePropertyQuery } = propertyApiSlice;
+export const { useCreatePropertyMutation, useGetPropertiesQuery, useGetPropertyListingQuery, useGetSinglePropertyQuery } = propertyApiSlice;
