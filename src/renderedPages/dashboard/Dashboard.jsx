@@ -9,6 +9,7 @@ const Dashboard = () => {
   const { data: report, isLoading: reportLoading } = useGetReportQuery();
 
   return (
+    reportLoading ? <h1 className='title'>Loading....</h1> :
     <div className='dashboard'>
       <div className='top-header'>
         <span></span>

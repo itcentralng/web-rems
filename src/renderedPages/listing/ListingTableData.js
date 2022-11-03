@@ -12,6 +12,7 @@ const ListingTableRow = () => {
     return rent;
   };
   return (
+    propertiesLoading ? <h1 className='title'>Loading all properties....</h1> :
     <tbody className="tbody">
       {properties?.map((property, index) => (
         <tr key={property.id} className="tr--container">

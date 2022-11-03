@@ -9,6 +9,7 @@ const Properties = () => {
   const { data: properties, isLoading: propertiesLoading } = useGetPropertiesQuery()
   const navigate = useNavigate();
   return (
+    propertiesLoading ? <h1 className='title'>Loading all properties....</h1> :
     <div className="properties">
       <div className="top-header">
         <span></span>
