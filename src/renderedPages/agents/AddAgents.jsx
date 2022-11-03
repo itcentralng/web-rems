@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./addAgent.module.css";
 import RightNav from "../../component/rightNav/RightNav";
 import { useNavigate } from "react-router-dom";
-
+import RemsAgentContext from "../../context/agentContext/AgentContext";
+import { useContext } from "react";
 // Checking form input fields...
 const isEmpty = (value) => value.trim() === "";
 const isNumber = (value) => value.trim().length >= 10;
 const isEmail = (value) => value.includes("@");
 const AddAgent = () => {
+  const { addAgent, httpSuccess } = useContext(RemsAgentContext);
+  const [timer, setTimer] = useState("");
+  useEffect(() => {
+    const time = setTimeout(() => setTimer(httpSuccess), 3000);
+
+    return () => {
+      clearTimeout(time);
+    };
+  }, [httpSuccess]);
   // Handles the general form validation
   const [formValidity, setFormValidity] = useState({
     fullName: true,
@@ -50,8 +60,9 @@ const AddAgent = () => {
     reader.readAsDataURL(e.target.files[0]);
   };
   // Overall form submission handle fuction
-  const submitHandler = async (event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
+
     const eneteredName = !isEmpty(form.fullName);
     const enteredEmail = isEmail(form.email);
     const enteredNumber = isNumber(form.phoneNumber);
@@ -77,31 +88,24 @@ const AddAgent = () => {
       enteredGender;
 
     if (!formIsValid) {
-      return;
+      // return (
+      //   <section className={classes.formInvalid}>
+      //     <p>Something went wrong</p>
+      //   </section>
+      // );
     }
 
     // console.log(form, profileImg);
 
     const formData = {
-      email: enteredEmail,
-      phone: enteredNumber,
-      home_addres: enteredHomeAddress,
-      work_address: enteredWorkAddress,
-      name: eneteredName,
+      email: form.email,
+      phone: form.phoneNumber,
+      home_address: form.homeAddress,
+      work_address: form.workAddress,
+      name: form.fullName,
       image: profileImg,
     };
-    const result = await fetch("https://rems.mrteey.com/agent", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization:
-          "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2Njc0ODUwNTcsImlhdCI6MTY2NzQwMTg5MSwic3ViIjoxLCJyb2xlIjoiYWRtaW4ifQ.2zG_2xS49ho6pXPV8Vxo5FGT3xCGTP5w8lsp3GPVlz0",
-      },
-      body: JSON.stringify(formData),
-    });
-    const jsonResult = await result.json();
-    console.log(jsonResult);
-
+    addAgent(formData);
     // console.log(formData);
 
     setForm({
@@ -135,6 +139,12 @@ const AddAgent = () => {
   const genderControlClasses = `${classes.radio__input} ${
     formValidity.gender ? "" : classes.invalid
   }`;
+
+  // const timeOut = setTimeout(() => {
+  //   <p className={classes.success}>{httpSuccess}</p>;
+  // }, 3000);
+
+  // clearTimeout(timeOut);
 
   return (
     <div className={classes.agentStyle}>
@@ -275,6 +285,7 @@ const AddAgent = () => {
         </div>
         <button className={classes.submit}>Add Agent</button>
       </form>
+      <p className={classes.success}>{timer}</p>
     </div>
   );
 };

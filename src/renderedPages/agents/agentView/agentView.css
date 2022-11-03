@@ -1,0 +1,41 @@
+.edit--agent {
+  /* width: 100%; */
+  display: flex;
+  gap: 2.4rem;
+  margin-left: 65rem;
+  /* left: 60%; */
+  /* border: 1px solid red; */
+}
+.edit--agent .button-del {
+  background-color: transparent;
+  border: 2px solid var(--danger);
+  border-radius: 1.7rem;
+  padding: 1.6rem 6rem;
+  color: var(--danger);
+  font-size: 1.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+.edit--agent .button-del:hover {
+  background-color: var(--danger);
+  color: var(--white);
+}
+.edit--agent .button-edit {
+  background-color: var(--blue_alt-02);
+  color: var(--white);
+  border-radius: 1.7rem;
+  padding: 1.6rem 6rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.title {
+  /* margin-top: 4rem; */
+}
