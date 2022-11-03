@@ -1,9 +1,12 @@
-import properties from "./propertiesData";
+// import properties from "./propertiesData";
 import "./properties.css";
 import { useNavigate } from "react-router-dom";
 import RightNav from "../../component/rightNav/RightNav";
+import {useGetPropertiesQuery} from "../properties/propertyApiSlice";
+
 
 const Properties = () => {
+  const { data: properties, isLoading: propertiesLoading } = useGetPropertiesQuery()
   const navigate = useNavigate();
   return (
     <div className="properties">
@@ -19,13 +22,13 @@ const Properties = () => {
         />
       </div>
       <div className="card-container">
-        {properties.map((p) => (
+        {properties?.map((p) => (
           <div className="card" key={p._id}>
             <div className="image-container">
-              <img src={p.photo} alt={p.property} />
+              <img src={p.photo} alt={p.image} />
             </div>
             <div>
-              <p className="bold">{p.property}</p>
+              <p className="bold">{p.name}</p>
               <p>{p.address}</p>
               <p>{p.name}</p>
             </div>
