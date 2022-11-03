@@ -4,15 +4,18 @@ import RightNav from "../../component/rightNav/RightNav";
 import { Link } from "react-router-dom";
 // import agentsData from "./agentsData";
 import { useNavigate } from "react-router-dom";
-import RemsAgentContext from "../../context/agentContext/AgentContext";
+// import RemsAgentContext from "../../context/agentContext/AgentContext";
+import { useGetAgentsQuery } from "./agentApiSlice";
+
 
 const Agents = () => {
-  const { getAgent, fetchAgent, httpError } = useContext(RemsAgentContext);
+  const { data: agents, isLoading: agentsLoading } = useGetAgentsQuery();
+  // const { getAgent, fetchAgent, httpError } = useContext(RemsAgentContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchAgent();
-  }, []);
+  // useEffect(() => {
+  //   fetchAgent();
+  // }, []);
   // console.log(getAgent);
 
   const str = (text) => {
@@ -31,24 +34,24 @@ const Agents = () => {
           onClick={() => navigate("/agents/addAgent")}
         />
       </div>
-      {getAgent.length === 0 && (
+      {/* {getAgent.length === 0 && (
         <p className={classes.emptyList}>No Agent Added</p>
-      )}
-      {httpError && <p className={classes.emptyList}></p>}
+      )} */}
+      {/* {httpError && <p className={classes.emptyList}></p>} */}
 
       <div className={classes.cardContainer}>
-        {getAgent.map((p) => (
+        {agents?.map((agent) => (
           <div
             className={classes.cards}
-            onClick={() => navigate("/agents/viewAgent")}
-            key={p.id}>
+            onClick={() => navigate("/agents/viewAgent?id=" + agent.id)}
+            key={agent.id}>
             <div className={classes.imgContainer}>
-              <img src={p.image} alt={p.name} />
+              <img src={agent.image} alt={agent.name} />
             </div>
             <div>
-              <h5 className={classes.bold}>{str(p.name)}</h5>
-              <h5 style={{ fontWeight: "400" }}>{p.phone}</h5>
-              <h5 className={classes.address}>{str(p.home_address)}</h5>
+              <h5 className={classes.bold}>{str(agent.name)}</h5>
+              <h5 style={{ fontWeight: "400" }}>{agent.phone}</h5>
+              <h5 className={classes.address}>{str(agent.home_address)}</h5>
             </div>
           </div>
         ))}
