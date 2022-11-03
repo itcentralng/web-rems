@@ -1,7 +1,11 @@
 import React, { Fragment, useState } from "react";
 import RightNav from "../../../component/rightNav/RightNav";
 import "./agentView.css";
+import { useGetSingleAgentQuery } from "../agentApiSlice";
 const AgentView = () => {
+  const params = new URLSearchParams(window.location.search);
+  const agentId = params.get("id");
+  const { data: agent, isLoading: agentLoading } = useGetSingleAgentQuery(agentId)
   const [isEditing, setIsEditing] = useState(false);
   const editButton = (
     <div className='top-header'>
