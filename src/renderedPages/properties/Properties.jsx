@@ -25,7 +25,7 @@ const Properties = () => {
         {properties?.map((p) => (
           <div className="card" key={p._id}>
             <div className="image-container">
-              <img src={p.photo} alt={p.image} />
+              <img src={p?.images[0]?.image} alt={p.name} />
             </div>
             <div>
               <p className="bold">{p.name}</p>
