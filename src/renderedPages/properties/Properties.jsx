@@ -24,7 +24,7 @@ const Properties = () => {
       </div>
       <div className="card-container">
         {properties?.map((p) => (
-          <div className="card" key={p._id}>
+          <div className="card" key={p._id} onClick={() => navigate("/properties/viewProperty?id="+p.id)}>
             <div className="image-container">
               <img src={p?.images[0]?.image} alt={p.name} />
             </div>

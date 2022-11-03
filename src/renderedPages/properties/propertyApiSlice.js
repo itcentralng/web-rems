@@ -14,6 +14,21 @@ const propertyApiSlice = apiSliceWithTags.injectEndpoints({
       }),
       invalidatesTags: ["Property"],
     }),
+    updateProperty: builder.mutation({
+      query: (values) => ({
+        url: `/property/${values.id}`,
+        method: "PUT",
+        body: { ...values },
+      }),
+      invalidatesTags: ["Property"],
+    }),
+    deleteProperty: builder.mutation({
+      query: (parameter) => ({
+        url: `/property/${parameter}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Property"],
+    }),
     getProperties: builder.query({
       query: () => `/properties`,
       providesTags: ["Property"],
@@ -29,4 +44,4 @@ const propertyApiSlice = apiSliceWithTags.injectEndpoints({
   }),
 });
 
-export const { useCreatePropertyMutation, useGetPropertiesQuery, useGetPropertyListingQuery, useGetSinglePropertyQuery } = propertyApiSlice;
+export const { useCreatePropertyMutation, useUpdatePropertyMutation, useDeletePropertyMutation, useGetPropertiesQuery, useGetPropertyListingQuery, useGetSinglePropertyQuery } = propertyApiSlice;
