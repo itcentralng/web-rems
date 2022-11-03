@@ -206,3 +206,16 @@
 .form__control .submit:hover {
   background-color: var(--blue_alt);
 }
+.formInvalid {
+  text-align: center;
+  color: var(--danger);
+  font-size: 2rem;
+  font-weight: 500;
+}
+.success {
+  font-size: 3rem;
+  color: var(--success);
+  text-align: center;
+  font-weight: 600;
+  margin-top: 1rem;
+}
