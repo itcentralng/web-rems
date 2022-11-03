@@ -8,6 +8,7 @@ import {
 } from "../../renderedPages";
 import { Route, Routes } from "react-router-dom";
 import AddProperty from "../../renderedPages/properties/addProperty/AddProperty";
+import ViewProperty from "../../renderedPages/properties/viewProperty/ViewProperty";
 import AgentView from "../../renderedPages/agents/agentView/AgentView";
 import AddAgent from "../../renderedPages/agents/AddAgents";
 
@@ -24,6 +25,7 @@ const Main = () => {
         <Route path='/archives' element={<Archives />} />
         <Route path='/properties' element={<Properties />} />
         <Route path='/properties/addProperty' element={<AddProperty />} />
+        <Route path='/properties/viewProperty' element={<ViewProperty />} />
         <Route path='/tenants' element={<Tenants />} />
       </Routes>
     </div>
