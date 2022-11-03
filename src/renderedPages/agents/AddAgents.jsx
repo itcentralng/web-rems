@@ -91,6 +91,7 @@ const AddAgent = () => {
       enteredGender;
 
     if (!formIsValid) {
+      return;
       // return (
       //   <section className={classes.formInvalid}>
       //     <p>Something went wrong</p>
@@ -286,9 +287,9 @@ const AddAgent = () => {
             {!formValidity.workAddress && <p>Address field cannot be empty</p>}
           </div>
         </div>
+        <p className={classes.success}>{timer}</p>
         <button className={classes.submit}>Add Agent</button>
       </form>
-      <p className={classes.success}>{timer}</p>
     </div>
   );
 };
