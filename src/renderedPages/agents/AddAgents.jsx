@@ -12,7 +12,10 @@ const AddAgent = () => {
   const { addAgent, httpSuccess } = useContext(RemsAgentContext);
   const [timer, setTimer] = useState("");
   useEffect(() => {
-    const time = setTimeout(() => setTimer(httpSuccess), 3000);
+    setTimeout(() => {
+      setTimer(httpSuccess);
+    }, 3000);
+    const time = setTimeout(() => setTimer(""), 5000);
 
     return () => {
       clearTimeout(time);
