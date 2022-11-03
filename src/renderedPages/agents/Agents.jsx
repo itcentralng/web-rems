@@ -22,6 +22,7 @@ const Agents = () => {
     return text.charAt(0).toUpperCase() + text.slice(1);
   };
   return (
+    agentsLoading? <h1 className='title'>Loading all agents....</h1> :
     <div>
       <div className='top-header'>
         <span></span>
