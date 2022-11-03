@@ -1,10 +1,13 @@
 import "./dashboard.css";
 import RightNav from "../../component/rightNav/RightNav";
 import Card from "../../component/UI/Card";
-import tenancyInfo from "./TenancyDetails";
+import cardIcons from "./TenancyDetails";
 import { TenancyTable } from "../../items";
+import { useGetReportQuery } from "./dashboardApiSlice";
 
 const Dashboard = () => {
+  const { data: report, isLoading: reportLoading } = useGetReportQuery();
+
   return (
     <div className='dashboard'>
       <div className='top-header'>
@@ -18,18 +21,33 @@ const Dashboard = () => {
       </div>
       <h1 className='title'>Dashboard</h1>
       <div className='tenancy--info'>
-        {tenancyInfo.map((card) => (
-          <Card key={card.id}>
-            <div className='card-icon'>{card.icon}</div>
-            <p className='card-name'>{card.name}</p>
-            <div
-              className={`card-amount ${
-                card.name === "Tenancy Owed" && "owed"
-              } ${card.name === "Tenancy Due" && "due"}`}>
-              {card.amount}
-            </div>
-          </Card>
-        ))}
+        {/* owed */}
+        <Card key={0}>
+          <div className='card-icon'>{cardIcons.owed}</div>
+          <p className='card-name'>{'Tenancy Owed'}</p>
+          <div
+            className={`card-amount owed`}>
+            {report?.notpaid? report.notpaid : 0}
+          </div>
+        </Card>
+        {/* Due */}
+        <Card key={1}>
+          <div className='card-icon'>{cardIcons.due}</div>
+          <p className='card-name'>{'Tenancy Due'}</p>
+          <div
+            className={`card-amount due"`}>
+            {report?.due}
+          </div>
+        </Card>
+        {/* Paid */}
+        <Card key={2}>
+          <div className='card-icon'>{cardIcons.paid}</div>
+          <p className='card-name'>{'Revenue Generated'}</p>
+          <div
+            className={`card-amount`}>
+            {report?.paid}
+          </div>
+        </Card>
       </div>
       <div className='tenancy-data'>
         <div className='tenancy-data__title'>
