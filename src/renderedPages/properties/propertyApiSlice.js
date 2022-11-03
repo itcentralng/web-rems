@@ -10,8 +10,8 @@ const propertyApiSlice = apiSliceWithTags.injectEndpoints({
       query: () => `/properties`,
       providesTags: ["Property"],
     }),
-    getPropertiesByType: builder.query({
-      query: (parameter) => `/property?type=${parameter}`,
+    getPropertyListing: builder.query({
+      query: () => `/properties?type=listed`,
       providesTags: ["Property"],
     }),
     getSingleProperty: builder.query({
@@ -21,4 +21,4 @@ const propertyApiSlice = apiSliceWithTags.injectEndpoints({
   }),
 });
 
-export const { useGetPropertiesQuery, useGetPropertiesByTypeQuery, useGetSinglePropertyQuery } = propertyApiSlice;
+export const { useGetPropertiesQuery, useGetPropertyListingQuery, useGetSinglePropertyQuery } = propertyApiSlice;
