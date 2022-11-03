@@ -24,7 +24,7 @@ const AddProperty = () => {
   };
 
   return (
-    propertyLoading ? <div className="loader">Adding Property...</div> :
+    propertyLoading ? <h1 className='title'>Adding Property Please wait....</h1> :
     <div className='property'>
       <div className='top-header'>
         <span></span>
