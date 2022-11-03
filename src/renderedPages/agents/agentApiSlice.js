@@ -18,6 +18,21 @@ const agentApiSlice = apiSliceWithTags.injectEndpoints({
       }),
       invalidatesTags: ["Agent"],
     }),
+    updateAgent: builder.mutation({
+      query: (values) => ({
+        url: `/agent/${values.id}`,
+        method: "PUT",
+        body: { ...values },
+      }),
+      invalidatesTags: ["Agent"],
+    }),
+    deleteAgent: builder.mutation({
+      query: (parameter) => ({
+        url: `/agent/${parameter}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Agent"],
+    }),
     getSingleAgent: builder.query({
       query: (parameter) => `/agent/${parameter}`,
       providesTags: ["Agent"],
@@ -25,4 +40,4 @@ const agentApiSlice = apiSliceWithTags.injectEndpoints({
   }),
 });
 
-export const { useGetAgentsQuery, useCreateAgentMutation, useGetSingleAgentQuery } = agentApiSlice;
+export const { useGetAgentsQuery, useCreateAgentMutation, useUpdateAgentMutation, useDeleteAgentMutation, useGetSingleAgentQuery } = agentApiSlice;
