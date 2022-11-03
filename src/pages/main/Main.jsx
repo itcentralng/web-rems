@@ -12,6 +12,8 @@ import ViewProperty from "../../renderedPages/properties/viewProperty/ViewProper
 import AgentView from "../../renderedPages/agents/agentView/AgentView";
 import AddAgent from "../../renderedPages/agents/AddAgents";
 import ViewUnit from "../../renderedPages/properties/viewUnit/ViewUnit";
+import TenantView from "../../renderedPages/tenants/tenantView/TenantView";
+import AddTenant from "../../renderedPages/tenants/AddTenant";
 
 const Main = () => {
   return (
@@ -29,6 +31,8 @@ const Main = () => {
         <Route path='/properties/viewProperty' element={<ViewProperty />} />
         <Route path='/properties/viewUnit' element={<ViewUnit />} />
         <Route path='/tenants' element={<Tenants />} />
+        <Route path='/tenants/viewTenant' element={<TenantView />} />
+        <Route path='/tenants/addTenant' element={<AddTenant />} />
       </Routes>
     </div>
   );
