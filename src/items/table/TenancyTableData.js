@@ -1,23 +1,40 @@
 import "./tr.css";
 import DummyData from "../../DashboardData";
-// import { Fragment } from "react";
+import { useGetPropertyListingQuery } from "../../renderedPages/properties/propertyApiSlice";
+import { property } from "lodash";
 const TableRow = () => {
+  const { data: properties, isLoading: propertiesLoading } = useGetPropertyListingQuery();
+  const calculateRent = (units) => {
+    let rent = 0;
+    units.forEach((unit) => {
+      rent += unit.annual_fee;
+    });
+    return rent;
+  };
+  const countTenants = (units) => {
+    let tenants = 0;
+    units.forEach((unit) => {
+      if (unit.tenant) tenants += 1;
+    });
+    return tenants;
+  };
+
   return (
     <tbody className="body">
-      {DummyData.map((data) => (
-        <tr key={data._id} className="tr--container">
-          <td data-label="S/N">{data._id}</td>
-          <td data-label="Property">{data.property}</td>
-          <td data-label="Occupant">{data.occupant}</td>
-          <td data-label="Due date">{data.dueDate}</td>
+      {properties?.map((property, index) => (
+        <tr key={property.id} className="tr--container">
+          <td data-label="S/N">{index+1}</td>
+          <td data-label="Property">{property.name}</td>
+          <td data-label="Units">{property.units.length}</td>
+          <td data-label="Tenants">{countTenants(property.units)}</td>
           <td data-label="Amount" className="table--amount">
-            {data.amount}
+            {calculateRent(property.units)}
           </td>
           <td
             data-label="Status"
-            className={`status ${data.status === "Due" && "due--status"}`}
+            className={`status ${property.status === "Due" && "due--status"}`}
           >
-            {data.status}
+            {property.status}
           </td>
           <td>
             <td>View</td>
