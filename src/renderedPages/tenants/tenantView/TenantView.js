@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import RightNav from "../../../component/rightNav/RightNav";
 import "./tenantView.css";
-import { useGetSingleTenantQuery, useUpdateTenantMutation, useDeleteTenantMutation } from "../tenantApiSlice";
+import { useGetSingleTenantQuery, useUpdateTenantMutation, useDeleteTenantMutation, useCreateTransactionMutation } from "../tenantApiSlice";
 import { useNavigate } from "react-router-dom";
 const TenantView = () => {
   const params = new URLSearchParams(window.location.search);
@@ -9,9 +9,11 @@ const TenantView = () => {
   const { data: tenant, isLoading: tenantLoading } = useGetSingleTenantQuery(tenantId)
   const [updateTenant, { isLoading: updateTenantLoading }] = useUpdateTenantMutation();
   const [deleteTenant, { isLoading: deleteTenantLoading }] = useDeleteTenantMutation();
+  const [createTransaction, { isLoading: createTransactionLoading }] = useCreateTransactionMutation();
   const [editableTenant, setEditableTenant] = useState({id:0, name:'', email:'', phone:'', work_address:'', home_address:'', state:'', lga:'', image: ''});
   const [ unit, setUnit ] = useState({id:0, name:'', annual_fee:0, next_payment_date:'', tenant_id:0});
   const [ amount, setAmount ] = useState(0);
+  const [ isPaid, setIsPaid ] = useState(false);
 
 
   const navigate = useNavigate();
@@ -43,6 +45,11 @@ const TenantView = () => {
 
   //  image file handle
   const makePayment = (e) => {
+    e.preventDefault();
+    if (amount) {
+      createTransaction({amount:amount, unit_id:unit.id, tenant_id:tenant.id, next_payment_date:unit.next_payment_date});
+      setIsPaid(true);
+    }
   };
 
   
@@ -90,6 +97,7 @@ const TenantView = () => {
         <button className="submit">Update Tenant</button>
       </form>
       </div>
+      {createTransactionLoading? <div className="loader">Processing payment please wait...</div> :
       <div className="form-container">
       <h1 className="title">Accept Payment</h1>
       <form onSubmit={makePayment} className="form__control">
@@ -146,9 +154,11 @@ const TenantView = () => {
             onChange={(e) => setEditableTenant({...editableTenant, phone: e.target.value})}
           />
         </div>
-        <button className="submit">Make Payment</button>
+
+        {!isPaid? <button className="submit">Make Payment</button>: ''}
       </form>
       </div>
+      }
     </div>
   );
 };
