@@ -17,7 +17,7 @@ const ViewUnit = () => {
 
   useEffect(() => {
     if (unit) {
-      setEditableUnit({id:unit?.id, name:unit?.name, property_id:unit?.property_id, tenant_id:unit?.tenant_id, annual_fee:unit?.annual_fee, date:unit?.date});
+      setEditableUnit({id:unit?.id, name:unit?.name, property_id:unit?.property_id, tenant_id:unit?.tenant_id, annual_fee:unit?.annual_fee, date:unit?.next_payment_date});
     }
   }, [unitLoading]);
 
@@ -87,7 +87,7 @@ const ViewUnit = () => {
             <label>Next Payment Date</label>
             <input
               type='date'
-              value={editableunit?.date}
+              value={editableunit?.next_payment_date}
               onChange={(e) => setEditableUnit({...editableunit, date: e.target.value})}
             />
           </div>
