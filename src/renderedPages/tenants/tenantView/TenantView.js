@@ -10,6 +10,8 @@ const TenantView = () => {
   const [updateTenant, { isLoading: updateTenantLoading }] = useUpdateTenantMutation();
   const [deleteTenant, { isLoading: deleteTenantLoading }] = useDeleteTenantMutation();
   const [editableTenant, setEditableTenant] = useState({id:0, name:'', email:'', phone:'', work_address:'', home_address:'', state:'', lga:'', image: ''});
+  const [ unit, setUnit ] = useState({id:0, name:'', annual_fee:0, next_payment_date:'', tenant_id:0});
+  const [ amount, setAmount ] = useState(0);
 
 
   const navigate = useNavigate();
@@ -19,6 +21,12 @@ const TenantView = () => {
       setEditableTenant({id:tenant?.id, name:tenant?.name, phone:tenant?.phone});
     }
   }, [tenantLoading]);
+
+  const changeUnit = (unitId) => {
+    let selectedunit = tenant?.units.find((unit) => unit.id == unitId);
+    setUnit({id:selectedunit?.id, name:selectedunit?.name, annual_fee:selectedunit?.annual_fee, next_payment_date:selectedunit?.next_payment_date, tenant_id:selectedunit?.tenant_id});
+    setAmount(selectedunit?.annual_fee);
+  }
 
   const editTenant = (e) => {
     e.preventDefault();
@@ -34,14 +42,7 @@ const TenantView = () => {
   };
 
   //  image file handle
-  const handleImageFile = (e) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setEditableTenant({...editableTenant, image: reader.result});
-      }
-    };
-    reader.readAsDataURL(e.target.files[0]);
+  const makePayment = (e) => {
   };
 
   
@@ -52,8 +53,11 @@ const TenantView = () => {
     <div className="tenantStyle">
       <div className='top-header'>
         <RightNav button buttonText='Back' onClick={() => navigate("/tenants")} />
-        <button style={{backgroundColor:'red'}} className={'submit'} onClick={doDeleteTenant}>Delete Tenant</button>
+        <button style={{backgroundColor:'red'}} className={'submit'} onClick={doDeleteTenant}>Delete</button>
       </div>
+      {/* create two forms side by side */}
+      <div className="form-container">
+      <h1 className="title">Tenant Details</h1>
       <form onSubmit={editTenant} className="form__control">
         <div className="inputs">
           <div className={''}>
@@ -85,6 +89,66 @@ const TenantView = () => {
         </div>
         <button className="submit">Update Tenant</button>
       </form>
+      </div>
+      <div className="form-container">
+      <h1 className="title">Accept Payment</h1>
+      <form onSubmit={makePayment} className="form__control">
+        <div className={''}>
+            <label htmlFor='name' className="label">
+              Unit
+            </label>
+            <select className="select" value={unit.id} onChange={(e) => changeUnit(e.target.value)}>
+              {tenantLoading ? (
+                <option className="option" value=''>Loading...</option>
+              ) : (
+                tenant?.units?.map((unit) => (
+                  <option className="option" key={unit.id} value={unit.id}>
+                    {`${unit.name.toUpperCase()}`}
+                  </option>
+                ))
+              )}
+            </select>
+        </div>
+        <div className={''}>
+          <label htmlFor='number' className="label">
+            Annual Fee
+          </label>
+          <input
+            className="input"
+            type='number'
+            name='annual_fee'
+            value={`${unit?.annual_fee}`}
+            readOnly={true}
+          />
+        </div>
+        <div className={''}>
+          <label htmlFor='number' className="label">
+            Amount
+          </label>
+          <input
+            className="input"
+            type='number'
+            name='amount'
+            value={`${amount}`}
+            onChange={(e) => setAmount(e.target.value)}
+            placeholder='Enter Amount to pay'
+          />
+        </div>
+        <div className={''}>
+          <label htmlFor='date' className="label">
+            Next Payment
+          </label>
+          <input
+            className="input"
+            type='date'
+            name='next_payment_date'
+            value={`${editableTenant?.phone}`}
+            onChange={(e) => setEditableTenant({...editableTenant, phone: e.target.value})}
+          />
+        </div>
+        <button className="submit">Make Payment</button>
+      </form>
+      </div>
     </div>
   );
 };

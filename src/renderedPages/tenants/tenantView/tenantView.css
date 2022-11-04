@@ -111,6 +111,18 @@
   border: 1px solid var(--blue_light);
   border-radius: 1rem;
 }
+.form__control .select {
+  width: 48rem;
+  height: 5.6rem;
+  padding: 1.6rem 2.4rem;
+  border: 1px solid var(--blue_light);
+  border-radius: 1rem;
+}
+.form__control .select option {
+  font-size: 5.6rem;
+  font-weight: 500;
+  color: var(--blue_alt-02);
+}
 .form__control .input:focus,
 .form__control .input:active {
   border: 2px solid #052959c9;
