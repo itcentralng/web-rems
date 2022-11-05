@@ -23,7 +23,7 @@ const Listing = () => {
         />
       </div>
       <div className="title">
-        <h1>Available Properties</h1>
+        <h1>Available Units</h1>
       </div>
       <div className="listing-queries">
         <div className="sorting__control">
@@ -64,10 +64,9 @@ const Listing = () => {
       <ListingTable
         serial="S/N"
         col1="Property Name"
-        col2="State"
-        col3="Units"
-        col4="Status"
-        col5="Rent"
+        col2="Units"
+        col3="Status"
+        col4="Rent"
       />
     </div>
   );

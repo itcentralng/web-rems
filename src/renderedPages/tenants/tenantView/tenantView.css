@@ -119,8 +119,6 @@
   border-radius: 1rem;
 }
 .form__control .select option {
-  font-size: 5.6rem;
-  font-weight: 500;
   color: var(--blue_alt-02);
 }
 .form__control .input:focus,

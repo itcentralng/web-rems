@@ -14,6 +14,7 @@ import AddAgent from "../../renderedPages/agents/AddAgents";
 import ViewUnit from "../../renderedPages/properties/viewUnit/ViewUnit";
 import TenantView from "../../renderedPages/tenants/tenantView/TenantView";
 import AddTenant from "../../renderedPages/tenants/AddTenant";
+import Receipt from "../../renderedPages/tenants/Receipt/Receipt";
 
 const Main = () => {
   return (
@@ -33,6 +34,7 @@ const Main = () => {
         <Route path='/tenants' element={<Tenants />} />
         <Route path='/tenants/viewTenant' element={<TenantView />} />
         <Route path='/tenants/addTenant' element={<AddTenant />} />
+        <Route path='/tenants/transaction' element={<Receipt />} />
       </Routes>
     </div>
   );

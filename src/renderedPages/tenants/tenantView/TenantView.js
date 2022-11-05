@@ -3,6 +3,7 @@ import RightNav from "../../../component/rightNav/RightNav";
 import "./tenantView.css";
 import { useGetSingleTenantQuery, useUpdateTenantMutation, useDeleteTenantMutation, useCreateTransactionMutation } from "../tenantApiSlice";
 import { useNavigate } from "react-router-dom";
+import ListingTable from "./ListingTable";
 const TenantView = () => {
   const params = new URLSearchParams(window.location.search);
   const tenantId = params.get("id");
@@ -13,7 +14,7 @@ const TenantView = () => {
   const [editableTenant, setEditableTenant] = useState({id:0, name:'', email:'', phone:'', work_address:'', home_address:'', state:'', lga:'', image: ''});
   const [ unit, setUnit ] = useState({id:0, name:'', annual_fee:0, next_payment_date:'', tenant_id:0});
   const [ amount, setAmount ] = useState(0);
-  const [ isPaid, setIsPaid ] = useState(false);
+  const today = new Date();
 
 
   const navigate = useNavigate();
@@ -21,6 +22,8 @@ const TenantView = () => {
   useEffect(() => {
     if (tenant) {
       setEditableTenant({id:tenant?.id, name:tenant?.name, phone:tenant?.phone});
+      setUnit({id:tenant?.units[0]?.id, name:tenant?.units[0]?.name, annual_fee:tenant?.units[0]?.annual_fee, next_payment_date:tenant?.units[0]?.next_payment_date, tenant_id:tenantId});
+      setAmount(tenant?.units[0]?.annual_fee);
     }
   }, [tenantLoading]);
 
@@ -48,7 +51,6 @@ const TenantView = () => {
     e.preventDefault();
     if (amount) {
       createTransaction({amount:amount, unit_id:unit.id, tenant_id:tenant.id, next_payment_date:unit.next_payment_date});
-      setIsPaid(true);
     }
   };
 
@@ -150,15 +152,30 @@ const TenantView = () => {
             className="input"
             type='date'
             name='next_payment_date'
-            value={`${editableTenant?.phone}`}
-            onChange={(e) => setEditableTenant({...editableTenant, phone: e.target.value})}
+            value={`${unit?.next_payment_date}`}
+            onChange={(e) => setUnit({...unit, next_payment_date: e.target.value})}
           />
         </div>
 
-        {!isPaid? <button className="submit">Make Payment</button>: ''}
+        {unit.next_payment_date <= today  ? <button className="submit">Make Payment</button>: ''}
       </form>
       </div>
       }
+
+      {/* Previous Payments */}
+      <div className="title">
+        <h1>Previous Payments</h1>
+      </div>
+      <div className="listing-queries">
+      </div>
+      <ListingTable
+        serial="S/N"
+        col1="Date"
+        col2="Amount"
+        col3="Unit"
+        col4="Receipt"
+        tenant_id={tenantId}
+      />
     </div>
   );
 };

@@ -10,6 +10,7 @@ const ListingTableRow = () => {
   const findStatus = (unit) => {
     let next_payment_date = new Date(unit.next_payment_date);
     let today = new Date();
+    console.log(next_payment_date, today);
     if (next_payment_date <= today) {
       return "Due";
     }

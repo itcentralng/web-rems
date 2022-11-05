@@ -66,7 +66,10 @@ const tenantApiSlice = apiSliceWithTags.injectEndpoints({
     getSingleTransaction: builder.query({
       query: (parameter) => `/transaction/${parameter}`,
     }),
+    getTenantTransactions: builder.query({
+      query: (parameter) => `/transaction/tenant/${parameter}`,
+    }),
   }),
 });
 
-export const { useCreateTenantMutation, useUpdateTenantMutation, useDeleteTenantMutation, useGetTenantsQuery, useGetSingleTenantQuery, useCreateTransactionMutation, useUpdateTransactionMutation, useDeleteTransactionMutation, useGetTransactionsQuery, useGetSingleTransactionQuery } = tenantApiSlice;
+export const { useCreateTenantMutation, useUpdateTenantMutation, useDeleteTenantMutation, useGetTenantsQuery, useGetSingleTenantQuery, useCreateTransactionMutation, useUpdateTransactionMutation, useDeleteTransactionMutation, useGetTransactionsQuery, useGetSingleTransactionQuery, useGetTenantTransactionsQuery } = tenantApiSlice;

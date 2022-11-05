@@ -7,13 +7,13 @@ import { useCreatePropertyMutation } from "../propertyApiSlice";
 const AddProperty = () => {
   const { data: agents, isLoading: agentsLoading } = useGetAgentsQuery();
   const [createProperty, { isLoading: propertyLoading }] = useCreatePropertyMutation();
-  const [property, setProperty] = useState({name:'', address:'', state:'', lga:'', agent_id:0, images: []});
+  const [property, setProperty] = useState({name:'', address:'', state:'', lga:'', agent_id:0, images: [], is_listed: false, type:'', file_number:''});
 
   const addProperty = (e) => {
     e.preventDefault();
     if (property.name && property.address && property.state && property.lga && property.agent_id) {
       createProperty(property);
-      setProperty({name:'', address:'', state:'', lga:'', agent_id:0, images: ['']})
+      setProperty({name:'', address:'', state:'', lga:'', agent_id:0, images: [''], type: '', is_listed: false, file_number: ''});
     }
 
   };
@@ -97,10 +97,35 @@ const AddProperty = () => {
               onChange={(e) => setProperty({...property, address: e.target.value})}
             />
           </div>
+          <div className='input small'>
+            <label>Type</label>
+            <select value={property.type} onChange={(e) => setProperty({...property, type: e.target.value})}>
+              <option value=''>Select Type</option>
+              <option value='house'>House</option>
+              <option value='shop'>Shop</option>
+              <option value='land'>Land</option>
+            </select>
+          </div>
+          <div className='input small'>
+            <label>File Number</label>
+            <input 
+                type='text' 
+                placeholder='Enter File Number' 
+                value={property.file_number}
+                onChange={(e) => setProperty({...property, file_number: e.target.value})}
+                />
+          </div>
           </div>
 
           
           <div className='input-content'>
+          <div className='input small'>
+            <label>Listing Status</label>
+            <select value={property?.is_listed} onChange={(e) => setProperty({...property, is_listed: e.target.value==='true'?true:false})}>
+              <option value={false}>Not Listed</option>
+              <option value={true}>Listed</option>
+            </select>
+          </div>
           <div className='input small'>
             <label>Agent</label>
             <select value={property.agent_id} onChange={(e) => setProperty({...property, agent_id: e.target.value})}>

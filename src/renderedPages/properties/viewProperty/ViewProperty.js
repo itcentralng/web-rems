@@ -22,13 +22,13 @@ const ViewProperty = () => {
 
   useEffect(() => {
     if (property) {
-      setEditableProperty({id:property?.id, name:property?.name, address:property?.address, state:property?.state, lga:property?.lga, agent_id:property?.agent_id, images: [property?.images[0]?.image], is_listed: property?.is_listed});
+      setEditableProperty({id:property?.id, name:property?.name, address:property?.address, state:property?.state, lga:property?.lga, agent_id:property?.agent_id, images: [property?.images[0]?.image], is_listed: property?.is_listed, type: property?.type, file_number: property?.file_number});
     }
   }, [propertyLoading]);
 
   const addUnit = (e) => {
     e.preventDefault();
-    if (unit.name && unit.tenant_id && unit.annual_fee) {      
+    if (unit.name) {      
       createUnit(unit);
       setUnit({property_id:propertyId, name:'', tenant_id:0, annual_fee:0});
     }
@@ -130,10 +130,23 @@ const ViewProperty = () => {
               onChange={(e) => setEditableProperty({...editableproperty, address: e.target.value})}
             />
           </div>
-          </div>
-
           
-          <div className='input-content'>
+          <div className='input small'>
+            <label>Type</label>
+            <select value={editableproperty?.type} onChange={(e) => setEditableProperty({...editableproperty, type: e.target.value})}>
+              <option value=''>Select Type</option>
+              <option value='house'>House</option>
+              <option value='shop'>Shop</option>
+              <option value='land'>Land</option>
+            </select>
+          </div>
+          <div className='input small'>
+            <label>File Number</label>
+            <input type='text' placeholder='Enter File Number'
+              value={editableproperty?.file_number}
+              onChange={(e) => setEditableProperty({...editableproperty, file_number: e.target.value})}
+            />
+          </div>
           <div className='input small'>
             <label>Agent</label>
             <select value={editableproperty?.agent_id} onChange={(e) => setEditableProperty({...editableproperty, agent_id: e.target.value})}>
@@ -151,7 +164,7 @@ const ViewProperty = () => {
           </div>
           <div className='input small'>
             <label>Listing Status</label>
-            <select value={editableproperty?.is_listed} onChange={(e) => setEditableProperty({...editableproperty, is_listed: e.target.value})}>
+            <select value={editableproperty?.is_listed} onChange={(e) => setEditableProperty({...editableproperty, is_listed: e.target.value==='true'?true:false})}>
               <option value={false}>Not Listed</option>
               <option value={true}>Listed</option>
             </select>
@@ -193,7 +206,7 @@ const ViewProperty = () => {
               {agentsLoading ? (
                 <option value=''>Loading...</option>
               ) : (
-                tenants.map((tenant) => (
+                tenants?.map((tenant) => (
                   <option key={tenant.id} value={tenant.id}>
                     {`${tenant.name.toUpperCase()} ${tenant.phone}`}
                   </option>

@@ -11,10 +11,9 @@ const ListingTable = (props) => {
             <th scope="col">{props.col1}</th>
             <th scope="col">{props.col2}</th>
             <th scope="col">{props.col3}</th>
-            <th scope="col">{props.col4}</th>
           </tr>
         </thead>
-        <ListingTableRow />
+        <ListingTableRow tenant_id={props.tenant_id} />
       </table>
     </div>
   );

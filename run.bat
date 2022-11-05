@@ -7,11 +7,8 @@
 
 @ECHO OFF
 @SETLOCAL
-@SET PATH=%PATH%;C:\Documents\REMS\web-rems
+@SET PATH=%PATH%;C:\Users\LENOVO\Documents\REMS\web-rems-main\web-rems-main
 
-@REM CALL YARN INSTALL && YARN START IN THE PATH
-
-@CALL yarn install
-@CALL yarn start
+@CALL npm start
 
 @ENDLOCAL

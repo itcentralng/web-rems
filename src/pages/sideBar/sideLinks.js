@@ -22,6 +22,33 @@ const sideLinks = [
   },
   {
     id: 2,
+    name: "properties",
+    path: "/properties",
+    icon: (
+      <svg viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6.16669 10.2871L14.5 4.49219L22 10.2871V19.3935C22 19.8326 21.8244 20.2538 21.5119 20.5643C21.1993 20.8748 20.7754 21.0492 20.3334 21.0492H8.66669C8.22466 21.0492 6.9674 20.8748 6.65484 20.5643C6.34228 20.2538 6.16669 19.8326 6.16669 19.3935V10.2871Z"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M5.33333 20.2213C4.89131 20.2213 2.80072 20.0469 2.48816 19.7364C2.17559 19.4259 2 19.0047 2 18.5656V9.45926L9.5 3.66431L11.5833 4.90608"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M12 21.0493V12.7708H17V21.0493"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  {
+    id: 3,
     name: "listing",
     path: "/listing",
     icon: (
@@ -47,33 +74,6 @@ const sideLinks = [
         <path
           d="M7 17.0527H11"
           strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    id: 3,
-    name: "properties",
-    path: "/properties",
-    icon: (
-      <svg viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M6.16669 10.2871L14.5 4.49219L22 10.2871V19.3935C22 19.8326 21.8244 20.2538 21.5119 20.5643C21.1993 20.8748 20.7754 21.0492 20.3334 21.0492H8.66669C8.22466 21.0492 6.9674 20.8748 6.65484 20.5643C6.34228 20.2538 6.16669 19.8326 6.16669 19.3935V10.2871Z"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M5.33333 20.2213C4.89131 20.2213 2.80072 20.0469 2.48816 19.7364C2.17559 19.4259 2 19.0047 2 18.5656V9.45926L9.5 3.66431L11.5833 4.90608"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M12 21.0493V12.7708H17V21.0493"
-          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />

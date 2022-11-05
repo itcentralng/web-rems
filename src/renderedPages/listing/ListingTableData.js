@@ -11,22 +11,24 @@ const ListingTableRow = () => {
     });
     return rent;
   };
+  let serial_number = 1;
   return (
     propertiesLoading ? <h1 className='title'>Loading all properties....</h1> :
     <tbody className="tbody">
       {properties?.map((property, index) => (
-        <tr key={property.id} className="tr--container">
-          <td data-label="S/N">{index+1}</td>
+        property.units.map((unit) => (
+          <tr key={unit.id} className="tr--container">
+          <td data-label="S/N">{serial_number++}</td>
           <td data-label="Property">{property.name}</td>
-          <td data-label="State">{property.state}</td>
-          <td data-label="Units">{property.units.length}</td>
+          <td data-label="Unit">{unit.name}</td>
           <td data-label="Status" className={`status`}>
-            {property.status}
+            {unit.tenant_id? "Occupied" : "Vacant"}
           </td>
           <td data-label="Rent" className="table--amount ">
-            {calculateRent(property.units)}
+            {unit.annual_fee}
           </td>
         </tr>
+        ))
       ))}
       ;
     </tbody>

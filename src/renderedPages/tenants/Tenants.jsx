@@ -27,6 +27,7 @@ const Tenants = () => {
           button
           icon
           buttonText="Add Tenant"
+          onClick={() => navigate("/tenants/AddTenant")}
         />
       </div>
       <ListingTable
