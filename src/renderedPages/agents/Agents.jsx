@@ -10,8 +10,8 @@ import { useGetAgentsQuery } from "./agentApiSlice";
 
 const Agents = () => {
   const { data: agents, isLoading: agentsLoading } = useGetAgentsQuery();
-  // const { getAgent, fetchAgent, httpError } = useContext(RemsAgentContext);
   const navigate = useNavigate();
+  const defaultImage = "./user.png";
 
   // useEffect(() => {
   //   fetchAgent();
@@ -47,7 +47,7 @@ const Agents = () => {
             onClick={() => navigate("/agents/viewAgent?id=" + agent.id)}
             key={agent.id}>
             <div className={classes.imgContainer}>
-              <img src={agent.image} alt={agent.name} />
+              <img src={agent.image? agent.image : defaultImage} alt={agent.name} />
             </div>
             <div>
               <h5 className={classes.bold}>{str(agent.name)}</h5>

@@ -14,6 +14,7 @@ const AddAgent = () => {
   const [agent, setAgent] = useState({name: "", phone: "", email: "", home_address: "", work_address: "", image: ""});
   const [createAgent, { isLoading: agentLoading }] = useCreateAgentMutation();
   const navigate = useNavigate();
+  const defaultImage = "../../user.png";
 
   //  image file handle
   const handleImageFile = (e) => {
@@ -41,7 +42,7 @@ const AddAgent = () => {
         <div className={classes.img_input}>
           <div className={classes.img_holder}>
             <img
-              src={agent.image}
+              src={agent.image? agent.image : defaultImage}
               alt={agent.name}
               id='img'
               className={classes.agentImg}

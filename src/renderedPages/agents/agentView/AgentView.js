@@ -10,6 +10,7 @@ const AgentView = () => {
   const [updateAgent, { isLoading: updateAgentLoading }] = useUpdateAgentMutation();
   const [deleteAgent, { isLoading: deleteAgentLoading }] = useDeleteAgentMutation();
   const [editableAgent, setEditableAgent] = useState({id:0, name:'', email:'', phone:'', work_address:'', home_address:'', state:'', lga:'', image: ''});
+  const defaultImage = "../../user.png";
 
 
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const AgentView = () => {
         <div className="img_input">
           <div className="img_holder">
             <img
-              src={editableAgent?.image}
+              src={editableAgent?.image? editableAgent?.image : defaultImage}
               alt={editableAgent?.name}
               id='img'
               className="agentImg"

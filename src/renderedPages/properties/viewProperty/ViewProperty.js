@@ -18,6 +18,8 @@ const ViewProperty = () => {
   const [editableproperty, setEditableProperty] = useState({id:0, name:'', address:'', state:'', lga:'', agent_id:0, images: [], is_listed: false});
   const [ unit, setUnit ] = useState({property_id:propertyId, name:'', tenant_id:0, annual_fee:0, date: new Date().toISOString().slice(0, 10)});
 
+  const defaultImage = "../../property.png";
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -74,7 +76,7 @@ const ViewProperty = () => {
       <div className="img_input">
           <div className="image-container">
             <img
-              src={editableproperty?.images[0]}
+              src={editableproperty?.images[0]? editableproperty?.images[0] : defaultImage}
               alt={editableproperty?.name}
               id='img'
               className="propertyImg"
@@ -233,7 +235,7 @@ const ViewProperty = () => {
             {property?.units?.map((unit) => (
               <div className="card" key={unit.id} onClick={() => navigate("/properties/viewUnit?id="+unit.id)}>
                 <div className="image-container">
-                  <img src={editableproperty?.images[0]} alt={unit.name} />
+                  <img src={editableproperty?.images[0]? editableproperty?.images[0] : defaultImage} alt={unit.name} />
                 </div>
                 <div>
                   <p className="bold">{unit.name}</p>

@@ -14,7 +14,12 @@ const TenantView = () => {
   const [editableTenant, setEditableTenant] = useState({id:0, name:'', email:'', phone:'', work_address:'', home_address:'', state:'', lga:'', image: ''});
   const [ unit, setUnit ] = useState({id:0, name:'', annual_fee:0, next_payment_date:'', tenant_id:0});
   const [ amount, setAmount ] = useState(0);
-  const today = new Date();
+  
+  const isDue = () => {
+    const today = new Date();
+    const nextPaymentDate = new Date(unit.next_payment_date);
+    return nextPaymentDate <= today;
+  }
 
 
   const navigate = useNavigate();
@@ -157,7 +162,7 @@ const TenantView = () => {
           />
         </div>
 
-        {unit.next_payment_date <= today  ? <button className="submit">Make Payment</button>: ''}
+        {isDue()  ? <button className="submit">Make Payment</button>: ''}
       </form>
       </div>
       }
