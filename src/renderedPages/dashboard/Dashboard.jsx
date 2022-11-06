@@ -4,20 +4,20 @@ import Card from "../../component/UI/Card";
 import cardIcons from "./TenancyDetails";
 import { TenancyTable } from "../../items";
 import { useGetReportQuery } from "./dashboardApiSlice";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const { data: report, isLoading: reportLoading } = useGetReportQuery();
-
+  const navigate = useNavigate()
   return (
     reportLoading ? <h1 className='title'>Loading....</h1> :
     <div className='dashboard'>
       <div className='top-header'>
         <span></span>
         <RightNav
-          input
-          placeholder='Search'
           button
-          buttonText='Generate Report'
+          buttonText='Report'
+          onClick={() => navigate("/transactions")}
         />
       </div>
       <h1 className='title'>Dashboard</h1>
