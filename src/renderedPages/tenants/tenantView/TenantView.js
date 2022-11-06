@@ -41,8 +41,7 @@ const TenantView = () => {
   useEffect(() => {
     if (tenant) {
       setEditableTenant({id:tenant?.id, name:tenant?.name, phone:tenant?.phone});
-      setUnit({id:tenant?.units[0]?.id, name:tenant?.units[0]?.name, annual_fee:tenant?.units[0]?.annual_fee, next_payment_date:tenant?.units[0]?.next_payment_date, tenant_id:tenantId});
-      setAmount(tenant?.units[0]?.annual_fee);
+      setUnitId(tenant?.units[0]?.id);
     }
   }, [tenantLoading]);
 
@@ -50,7 +49,7 @@ const TenantView = () => {
     setUnit({id:singleunit?.id, name:singleunit?.name, annual_fee:singleunit?.annual_fee, next_payment_date:singleunit?.next_payment_date, tenant_id:singleunit?.tenant_id});
     setAmount(singleunit?.recent_payment?.amount? singleunit?.annual_fee-singleunit?.recent_payment?.amount : singleunit?.annual_fee);
     setPaymentDate(singleunit?.next_payment_date);
-  }, [unitId]);
+  }, [singleunitLoading, unitId]);
 
   const editTenant = (e) => {
     e.preventDefault();
@@ -69,13 +68,19 @@ const TenantView = () => {
   const makePayment = (e) => {
     e.preventDefault();
     if (amount && validPayment()) {
+      window.confirm("Are you sure you want to make this payment?") &&
       createTransaction({amount:amount, unit_id:unit.id, tenant_id:tenant.id, next_payment_date:unit.next_payment_date}).then((res) => {
         console.log(res)
-        if (res?.data) {
+        if (res?.data?.id) {
             setIsPaid(true)
             navigate('/tenants/transaction?id='+res?.data?.id)
+        }else{
+            alert('Payment failed')
         }
       });
+    }
+    else{
+      alert('Change the next payment date to make payment or the amount is invalid')
     }
   };
 
