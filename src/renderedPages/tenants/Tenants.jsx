@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import classes from "./tenants.module.css";
 import RightNav from "../../component/rightNav/RightNav";
 import { Link } from "react-router-dom";
@@ -10,13 +10,10 @@ import ListingTable from "./ListingTable";
 
 const Tenants = () => {
   
-  // const { getTenant, fetchTenant, httpError } = useContext(RemsTenantContext);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   fetchTenant();
-  // }, []);
-  // console.log(getTenant);
   return (
     <div className="listing">
       <div className="top-header">
@@ -24,6 +21,8 @@ const Tenants = () => {
         <RightNav
           input
           placeholder="Search Tenants"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           button
           icon
           buttonText="Add Tenant"
@@ -38,6 +37,7 @@ const Tenants = () => {
         col4="Amount"
         col5="Status"
         col6="View"
+        searchTerm={searchTerm}
       />
     </div>
   );

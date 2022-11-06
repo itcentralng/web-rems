@@ -2,23 +2,37 @@ import React, { Fragment, useEffect, useState } from "react";
 import RightNav from "../../../component/rightNav/RightNav";
 import "./tenantView.css";
 import { useGetSingleTenantQuery, useUpdateTenantMutation, useDeleteTenantMutation, useCreateTransactionMutation } from "../tenantApiSlice";
+import { useGetSingleUnitQuery } from "../../properties/propertyApiSlice";
 import { useNavigate } from "react-router-dom";
 import ListingTable from "./ListingTable";
 const TenantView = () => {
   const params = new URLSearchParams(window.location.search);
   const tenantId = params.get("id");
+
+  const [editableTenant, setEditableTenant] = useState({id:0, name:'', email:'', phone:'', work_address:'', home_address:'', state:'', lga:'', image: ''});
+  const [ unitId, setUnitId ] = useState(0);
+  const [ unit, setUnit ] = useState({id:0, name:'', annual_fee:0, next_payment_date:'', tenant_id:0});
+  const [ amount, setAmount ] = useState(0);
+  const [ isPaid, setIsPaid ] = useState(false);
+  const [ paymentDate, setPaymentDate ] = useState('');
+
   const { data: tenant, isLoading: tenantLoading } = useGetSingleTenantQuery(tenantId)
+  const { data: singleunit, isLoading: singleunitLoading } = useGetSingleUnitQuery(unitId)
   const [updateTenant, { isLoading: updateTenantLoading }] = useUpdateTenantMutation();
   const [deleteTenant, { isLoading: deleteTenantLoading }] = useDeleteTenantMutation();
   const [createTransaction, { isLoading: createTransactionLoading }] = useCreateTransactionMutation();
-  const [editableTenant, setEditableTenant] = useState({id:0, name:'', email:'', phone:'', work_address:'', home_address:'', state:'', lga:'', image: ''});
-  const [ unit, setUnit ] = useState({id:0, name:'', annual_fee:0, next_payment_date:'', tenant_id:0});
-  const [ amount, setAmount ] = useState(0);
+  
   
   const isDue = () => {
     const today = new Date();
-    const nextPaymentDate = new Date(unit.next_payment_date);
+    const nextPaymentDate = new Date(paymentDate);
     return nextPaymentDate <= today;
+  }
+  
+  const validPayment = () => {
+    const today = new Date();
+    const nextPaymentDate = new Date(unit.next_payment_date);
+    return nextPaymentDate > today;
   }
 
 
@@ -32,11 +46,11 @@ const TenantView = () => {
     }
   }, [tenantLoading]);
 
-  const changeUnit = (unitId) => {
-    let selectedunit = tenant?.units.find((unit) => unit.id == unitId);
-    setUnit({id:selectedunit?.id, name:selectedunit?.name, annual_fee:selectedunit?.annual_fee, next_payment_date:selectedunit?.next_payment_date, tenant_id:selectedunit?.tenant_id});
-    setAmount(selectedunit?.annual_fee);
-  }
+  useEffect(() => {
+    setUnit({id:singleunit?.id, name:singleunit?.name, annual_fee:singleunit?.annual_fee, next_payment_date:singleunit?.next_payment_date, tenant_id:singleunit?.tenant_id});
+    setAmount(singleunit?.recent_payment?.amount? singleunit?.annual_fee-singleunit?.recent_payment?.amount : singleunit?.annual_fee);
+    setPaymentDate(singleunit?.next_payment_date);
+  }, [unitId]);
 
   const editTenant = (e) => {
     e.preventDefault();
@@ -54,10 +68,27 @@ const TenantView = () => {
   //  image file handle
   const makePayment = (e) => {
     e.preventDefault();
-    if (amount) {
-      createTransaction({amount:amount, unit_id:unit.id, tenant_id:tenant.id, next_payment_date:unit.next_payment_date});
+    if (amount && validPayment()) {
+      createTransaction({amount:amount, unit_id:unit.id, tenant_id:tenant.id, next_payment_date:unit.next_payment_date}).then((res) => {
+        console.log(res)
+        if (res?.data) {
+            setIsPaid(true)
+            navigate('/tenants/transaction?id='+res?.data?.id)
+        }
+      });
     }
   };
+
+  // update amount
+  const updateAmount = (amount) =>{
+    if (unit?.recent_payment?.amount){
+      if ((unit.annual_fee - unit.recent_payment.amount) < amount){
+        alert("Amount cant be greater than "+unit.annual_fee - unit.recent_payment.amount)
+      }
+    }else{
+      setAmount(amount)
+    }
+  }
 
   
   return (
@@ -112,7 +143,7 @@ const TenantView = () => {
             <label htmlFor='name' className="label">
               Unit
             </label>
-            <select className="select" value={unit.id} onChange={(e) => changeUnit(e.target.value)}>
+            <select className="select" value={unit.id} onChange={(e) => setUnitId(e.target.value)}>
               {tenantLoading ? (
                 <option className="option" value=''>Loading...</option>
               ) : (
@@ -145,7 +176,7 @@ const TenantView = () => {
             type='number'
             name='amount'
             value={`${amount}`}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={(e) => updateAmount(e.target.value)}
             placeholder='Enter Amount to pay'
           />
         </div>
@@ -162,7 +193,7 @@ const TenantView = () => {
           />
         </div>
 
-        {isDue()  ? <button className="submit">Make Payment</button>: ''}
+        {isDue() && !isPaid  ? <button className="submit">Make Payment</button>: ''}
       </form>
       </div>
       }

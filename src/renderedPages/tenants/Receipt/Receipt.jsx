@@ -107,7 +107,7 @@ const Receipt = () => {
 
                                     <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> {showDate(transaction?.created_at)}</div>
 
-                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-success badge-pill px-25">Paid</span></div>
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-success badge-pill px-25">{transaction?.type?.toUpperCase} PAYMENT</span></div>
                                 </div>
                             </div>
                         </div>

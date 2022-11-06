@@ -4,13 +4,12 @@ import {useGetUnitsQuery} from "../properties/propertyApiSlice";
 import { property } from "lodash";
 import { useNavigate } from "react-router-dom";
 
-const ListingTableRow = () => {
+const ListingTableRow = (props) => {
   const { data: units, isLoading: unitsLoading } = useGetUnitsQuery();
   const navigate = useNavigate();
   const findStatus = (unit) => {
     let next_payment_date = new Date(unit.next_payment_date);
     let today = new Date();
-    console.log(next_payment_date, today);
     if (next_payment_date <= today) {
       return "Due";
     }
@@ -23,10 +22,27 @@ const ListingTableRow = () => {
     }
     return newDate.toDateString();
   };
+  const termFound = (unit) =>{
+    if (props.searchTerm === "") {
+      return true;
+    }
+    if (unit.tenant.name.toLowerCase().includes(props.searchTerm.toLowerCase())) {
+      return true;
+    }
+    if (unit.name.toLowerCase().includes(props.searchTerm.toLowerCase())) {
+      return true;
+    }
+    if (findStatus(unit).toLowerCase().includes(props.searchTerm.toLowerCase())) {
+      return true;
+    }
+    return false;
+  }
+
   return (
     unitsLoading ? <h1 className='title'>Loading all tenants....</h1> :
     <tbody className="tbody">
       {units?.map((unit, index) => (
+        termFound(unit) &&
         <tr key={unit.id} className="tr--container">
           <td data-label="S/N">{index+1}</td>
           <td data-label="Tenant">{unit.tenant.name}</td>

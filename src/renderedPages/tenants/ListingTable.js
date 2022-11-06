@@ -16,7 +16,7 @@ const ListingTable = (props) => {
             <th scope="col">{props.col6}</th>
           </tr>
         </thead>
-        <ListingTableRow />
+        <ListingTableRow searchTerm={props.searchTerm} />
       </table>
     </div>
   );
