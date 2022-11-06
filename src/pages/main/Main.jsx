@@ -2,7 +2,7 @@ import {
   Dashboard,
   Agents,
   Listing,
-  Archives,
+  Transactions,
   Properties,
   Tenants,
 } from "../../renderedPages";
@@ -26,7 +26,7 @@ const Main = () => {
 
         <Route path='/agents/viewAgent' element={<AgentView />} />
         <Route path='/listing' element={<Listing />} />
-        <Route path='/archives' element={<Archives />} />
+        <Route path='/transactions' element={<Transactions />} />
         <Route path='/properties' element={<Properties />} />
         <Route path='/properties/addProperty' element={<AddProperty />} />
         <Route path='/properties/viewProperty' element={<ViewProperty />} />
