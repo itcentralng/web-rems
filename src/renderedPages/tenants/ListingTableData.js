@@ -10,9 +10,11 @@ const ListingTableRow = (props) => {
   const findStatus = (unit) => {
     let next_payment_date = new Date(unit.next_payment_date);
     let today = new Date();
-    if (next_payment_date <= today) {
+    if (next_payment_date - today < 604800000) {
       return "Due";
-    }
+    } else if (next_payment_date - today < 0) {
+      return "Overdue";
+    };
     return "Paid";
   };
   const showDate = (date) => {
