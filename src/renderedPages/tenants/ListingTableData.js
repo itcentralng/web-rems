@@ -10,11 +10,10 @@ const ListingTableRow = (props) => {
   const findStatus = (unit) => {
     let next_payment_date = new Date(unit.next_payment_date);
     let today = new Date();
-    if (next_payment_date - today < 604800000) {
-      return "Due";
-    } else if (next_payment_date - today < 0) {
+    if (next_payment_date - today < 0) {
       return "Overdue";
-    };
+    } else if (next_payment_date - today < 604800000) {
+      return "Due"}
     return "Paid";
   };
   const showDate = (date) => {
@@ -51,7 +50,7 @@ const ListingTableRow = (props) => {
           <td data-label="Unit">{unit.name}</td>
           <td data-label="Due Date">{showDate(unit.next_payment_date)}</td>
           <td data-label="Amount" className="table--amount ">{unit.annual_fee}</td>
-          <td data-label="Status" className={findStatus(unit)=='Due'? ``:`status`} style={findStatus(unit)=='Due'? {color:'red'}:{}}>{findStatus(unit)}</td>
+          <td data-label="Status" className={findStatus(unit)=='Due'? ``:`status`} style={findStatus(unit)=='Due'? {color:'blue'}:findStatus(unit)=='Overdue'? {color:'red'}:{}}>{findStatus(unit)}</td>
           <td data-label="View" className={`view`}>
             <button className="view--button" onClick={()=>{navigate('/tenants/viewTenant?id='+unit.tenant.id)}}>View</button>
           </td>
