@@ -63,19 +63,6 @@ const Dashboard = () => {
           col5='Status'
         />
       </div>
-      <div className='listing-data'>
-        {/* <div className='listing-data__title'>
-          <h1>Listing</h1>
-        </div>
-        <ListingTable
-          serial='S/N'
-          col1='Property Name'
-          col2='State'
-          col3='units'
-          col4='Status'
-          col5='Rent'
-        /> */}
-      </div>
     </div>
   );
 };

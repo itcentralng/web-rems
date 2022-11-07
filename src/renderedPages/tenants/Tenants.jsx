@@ -29,16 +29,7 @@ const Tenants = () => {
           onClick={() => navigate("/tenants/AddTenant")}
         />
       </div>
-      <ListingTable
-        serial="S/N"
-        col1="Tenant"
-        col2="Unit"
-        col3="Due Date"
-        col4="Amount"
-        col5="Status"
-        col6="View"
-        searchTerm={searchTerm}
-      />
+      <ListingTable />
     </div>
   );
 };

@@ -1,14 +1,14 @@
-.l-table {
+.table {
   padding: 2rem;
   background-color: var(--white_alt);
   width: 100%;
 }
 
-.l-table > table {
+.table > table {
   border-collapse: separate;
   border-spacing: 0 15px;
 }
-.l-table .more {
+.table .more {
   width: 100%;
   display: flex;
   justify-content: end;
@@ -18,17 +18,17 @@
   font-weight: 700;
   cursor: pointer;
 }
-.l-table-container {
+.table-container {
   width: 100%;
   border-spacing: 0px;
 }
 
-.l-table-container > .header {
+.table-container > .table-header {
   background-color: rgba(2, 40, 115, 0.15);
 
   border-collapse: collapse;
 }
-.l-table-container > tr {
+.table-container > tr {
   margin-bottom: 3.2rem;
 }
 

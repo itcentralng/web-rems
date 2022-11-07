@@ -3,9 +3,9 @@ import TableRow from "./TenancyTableData";
 
 const TenancyTable = (props) => {
   return (
-    <div className="">
-      <table className="">
-        <thead className="">
+    <div className="table">
+      <table className="table-container">
+        <thead className="table-header">
           <tr>
             <th scope="col">{props.serial}</th>
             <th scope="col">{props.col1}</th>

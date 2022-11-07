@@ -14,13 +14,7 @@ const Listing = () => {
     <div className="listing">
       <div className="top-header">
         <span></span>
-        <RightNav
-          input
-          placeholder="Search Managers"
-          button
-          icon
-          buttonText="Add Tenant"
-        />
+        <RightNav />
       </div>
       <div className="title">
         <h1>Available Units</h1>

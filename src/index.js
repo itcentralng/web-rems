@@ -1,17 +1,20 @@
 import "./index.css";
 import App from "./App";
+import { store } from "./api/store";
+import { Provider } from "react-redux";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { store } from "./api/store";
+import { RemsAgentProvider } from "./context/agentContext/AgentContext";
 
 const root = createRoot(document.getElementById("root"));
 const app = (
-  <BrowserRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </BrowserRouter>
+  <RemsAgentProvider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
+  </RemsAgentProvider>
 );
 
 root.render(app);

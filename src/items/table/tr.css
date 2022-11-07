@@ -1,5 +1,6 @@
 .tr--container {
   background-color: var(--white);
+  height: 4rem;
 }
 .tr--container > td {
   padding: 2.4rem;
