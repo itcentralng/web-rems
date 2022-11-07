@@ -191,7 +191,7 @@ const AddProperty = () => {
                 {agentsLoading ? (
                   <option value="">Loading...</option>
                 ) : (
-                  agents.map((agent) => (
+                  agents?.map((agent) => (
                     <option key={agent.id} value={agent.id}>
                       {`${agent.name.toUpperCase()} ${agent.phone}`}
                     </option>
