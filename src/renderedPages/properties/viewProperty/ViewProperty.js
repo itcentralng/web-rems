@@ -42,7 +42,7 @@ const ViewProperty = () => {
     date: new Date().toISOString().slice(0, 10),
   });
 
-  const defaultImage = "../../property.png";
+  const defaultImage = require("../../../assets/home.png");
 
   const navigate = useNavigate();
 
