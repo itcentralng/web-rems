@@ -325,6 +325,7 @@ const ViewProperty = () => {
                 }
               >
                 <option value="">Select Tenant</option>
+                <option value="add">Add New</option>
                 {agentsLoading ? (
                   <option value="">Loading...</option>
                 ) : (

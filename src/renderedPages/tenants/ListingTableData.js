@@ -31,7 +31,7 @@ const ListingTableRow = (props) => {
     <tbody className="tbody">
       {units?.filter((unit)=>{
         console.log(props.searchTerm);
-        return (props.searchTerm === "") || unit?.tenant?.name?.toLowerCase().includes(props?.searchTerm?.toLowerCase()) || unit?.name?.toLowerCase().includes(props?.searchTerm?.toLowerCase()) || findStatus(unit)?.toLowerCase().includes(props?.searchTerm?.toLowerCase())
+        return (props.searchTerm === "") || unit?.tenant?.name?.toLowerCase().includes(props?.searchTerm?.toLowerCase()) || unit?.name?.toLowerCase().includes(props?.searchTerm?.toLowerCase()) || findStatus(unit)?.toLowerCase()===props?.searchTerm?.toLowerCase()
       }).map(
         (unit, index) =>
           (

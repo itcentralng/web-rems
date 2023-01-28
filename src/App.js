@@ -5,12 +5,16 @@ import { MdClose as Close } from "react-icons/md";
 import "./App.css";
 import { useState } from "react";
 // import Popup from "./component/popup/Popup";
+import { useLocation } from "react-router-dom";
 
 const App = () => {
   const [showNav, setShowNav] = useState(false);
+  const location = useLocation();
+  const showMain = location.pathname.includes("/tenants/transaction");
   // const [popupError, setPopupError] = useState(true);
 
   return (
+    showMain ? <Main /> :
     <div className="app">
       <div className={`nav-side ${showNav && "showNav"}`}>
         <SideBar />
