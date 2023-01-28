@@ -4,11 +4,13 @@ import TableRow from "./TenancyTableData";
 
 const TenancyTable = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [doPrint, setDoPrint] = useState(false);
   return (
     <div className="table">
       <div className="input-container" style={{ width: "300px" }}>
-  <input type="text" placeholder="Filter result" value={searchTerm} style={{ width: "100%", height:"5rem" }} onChange={(e)=>{setSearchTerm(e.target.value)}} />
-</div>
+        <input type="text" placeholder="Filter result" value={searchTerm} style={{ width: "100%", height:"5rem" }} onChange={(e)=>{setSearchTerm(e.target.value)}} />
+        <button style={{cursor:"pointer", borderRadius:10, margin:10, backgroundColor: "#022873", color: "white", padding: "10px 15px"}} onClick={()=>{setDoPrint(!doPrint)}}>Print</button>
+      </div>
 
       <table className="table-container">
         <thead className="table-header">
@@ -22,7 +24,7 @@ const TenancyTable = (props) => {
             <th scope="col"></th>
           </tr>
         </thead>
-        <TableRow searchTerm={searchTerm}/>
+        <TableRow searchTerm={searchTerm} doPrint={doPrint}/>
       </table>
       {/* <span className="more">See More</span> */}
     </div>

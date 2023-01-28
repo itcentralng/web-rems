@@ -2,6 +2,7 @@ import "./tr.css";
 import DummyData from "../../DashboardData";
 import { useGetPropertyListingQuery } from "../../renderedPages/properties/propertyApiSlice";
 import { property } from "lodash";
+import { useEffect } from "react";
 const TableRow = (props) => {
   const { data: properties, isLoading: propertiesLoading } = useGetPropertyListingQuery();
   const calculateRent = (units) => {
@@ -18,6 +19,17 @@ const TableRow = (props) => {
     });
     return tenants;
   };
+
+  useEffect(
+    ()=>{
+      if (props.doPrint){
+        const table = document.querySelector('.table-container');
+        let newWin = window.open("");
+        newWin.document.write(table.outerHTML);
+        newWin.print();
+        newWin.close();
+      }
+    }, [props.doPrint])
 
   return (
     propertiesLoading ? <h1 className='title'>Loading all properties....</h1> :
