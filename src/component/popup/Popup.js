@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "./popup.css";
+import { useNavigate } from "react-router-dom";
+import classes from "../../renderedPages/tenants/addTenantPopup.module.css";
+import { useCreateTenantMutation } from "../../renderedPages/tenants/tenantApiSlice";
 
-const Popup = ({ success, error }) => {
+const Popup = ({ success, error, content, close }) => {
+  const isEmpty = (value) => value.trim() === "";
+const isNumber = (value) => value.trim().length >= 10;
+const isEmail = (value) => value.includes("@");
+  const [tenant, setTenant] = useState({ name: "", phone: "" });
+  const [createTenant, { isLoading: tenantLoading }] =
+    useCreateTenantMutation();
+  const navigate = useNavigate();
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    createTenant(tenant);
+    close();
+  };
   return (
     <div className="popup-background">
       <div className="pop">
         <div className="popup-container">
-          <span className="popup-icon">
+        <span style={{color: 'red', fontSize:'2.5rem', cursor:'pointer', marginRight:40, marginTop:10, position:'absolute', right:0, top:0}} onClick={close}>x</span>
+          {/* <span className="popup-icon">
             {success ? (
               <svg
                 viewBox="0 0 406 406"
@@ -58,7 +75,44 @@ const Popup = ({ success, error }) => {
           </p>
           <div className={`popup-button ${success ? "success" : "error"}`}>
             {success ? "Go Back" : "Try Again"}
+          </div> */}
+          {
+          content.tenant? <div>
+            <form onSubmit={submitHandler} className={classes.form__control}>
+        <div className={classes.inputs}>
+          <div className={""}>
+            <label htmlFor="name" className={classes.label}>
+              Full name
+            </label>
+            <input
+              className={classes.input}
+              type="text"
+              name="fullName"
+              value={tenant.name}
+              onChange={(e) => setTenant({ ...tenant, name: e.target.value })}
+              placeholder="Enter Tenant Name"
+            />
+            {!isEmpty(tenant.name) && <p>Name field cannot be empty</p>}
           </div>
+        </div>
+        <div className={""}>
+          <label htmlFor="number" className={classes.label}>
+            Phone No
+          </label>
+          <input
+            className={classes.input}
+            type="tel"
+            name="phoneNumber"
+            value={`${tenant.phone}`}
+            onChange={(e) => setTenant({ ...tenant, phone: e.target.value })}
+            placeholder="Enter Tenant Phone Number"
+          />
+          {!isNumber(tenant.phone) && <p>Enter a valid phone number</p>}
+        </div>
+        <button className={classes.submit}>Add Tenant</button>
+      </form>
+          </div>:''
+        }
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RightNav from "../../../component/rightNav/RightNav";
 import { useGetAgentsQuery } from "../../agents/agentApiSlice";
+import Popup from "../../../component/popup/Popup"
 import {
   useGetSinglePropertyQuery,
   useUpdatePropertyMutation,
@@ -14,6 +15,7 @@ import { useGetTenantsQuery } from "../../tenants/tenantApiSlice";
 const ViewProperty = () => {
   const params = new URLSearchParams(window.location.search);
   const propertyId = params.get("id");
+  const [addTenant, setAddTenant] = useState(false);
   const { data: agents, isLoading: agentsLoading } = useGetAgentsQuery();
   const { data: tenants, isLoading: tenantsLoading } = useGetTenantsQuery();
   const { data: property, isLoading: propertyLoading } =
@@ -45,6 +47,11 @@ const ViewProperty = () => {
   const defaultImage = require("../../../assets/home.png");
 
   const navigate = useNavigate();
+
+  const closePopup = ()=>{
+    setAddTenant(false);
+    setUnit({...unit, tenant_id:''})
+  }
 
   useEffect(() => {
     if (property) {
@@ -321,7 +328,14 @@ const ViewProperty = () => {
               <select
                 value={unit.tenant_id}
                 onChange={(e) =>
-                  setUnit({ ...unit, tenant_id: e.target.value })
+                  {
+                    setUnit({ ...unit, tenant_id: e.target.value });
+                    if (e.target.value == 'add'){
+                      setAddTenant(true);
+                    }else{
+                      setAddTenant(false);
+                    }
+                  }
                 }
               >
                 <option value="">Select Tenant</option>
@@ -381,6 +395,7 @@ const ViewProperty = () => {
           </div>
         </div>
       </div>
+      {addTenant && <Popup content={{tenant:true}} close={closePopup} />}
     </div>
   );
 };

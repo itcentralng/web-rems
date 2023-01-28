@@ -30,7 +30,7 @@ const Receipt = () => {
 
   return (
     transactionLoading ? <h1 className='title'>Loading transaction....</h1> :
-    <div className="listing">
+    <div className="listing narrow-page">
       <div className="top-header">
         <span></span>
         <RightNav
