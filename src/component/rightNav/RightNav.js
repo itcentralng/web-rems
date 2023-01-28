@@ -35,7 +35,7 @@ const RightNav = ({
               />
             </svg>
           </span>
-          <input type="text" {...props} />
+          <input type="text" {...props}/>
         </div>
       )}
       {button && (

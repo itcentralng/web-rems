@@ -29,7 +29,7 @@ const Tenants = () => {
           onClick={() => navigate("/tenants/AddTenant")}
         />
       </div>
-      <ListingTable />
+      <ListingTable searchTerm={searchTerm} />
     </div>
   );
 };

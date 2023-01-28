@@ -24,49 +24,32 @@ const ListingTableRow = (props) => {
     }
     return newDate.toDateString();
   };
-  const termFound = (unit) => {
-    if (props.searchTerm === "") {
-      return true;
-    }
-    if (
-      unit.tenant.name.toLowerCase().includes(props.searchTerm.toLowerCase())
-    ) {
-      return true;
-    }
-    if (unit.name.toLowerCase().includes(props.searchTerm.toLowerCase())) {
-      return true;
-    }
-    if (
-      findStatus(unit).toLowerCase().includes(props.searchTerm.toLowerCase())
-    ) {
-      return true;
-    }
-    return false;
-  };
 
   return unitsLoading ? (
     <h1 className="title">Loading all tenants....</h1>
   ) : (
-    <div>
-      {units?.map(
+    <tbody className="tbody">
+      {units?.filter((unit)=>{
+        console.log(props.searchTerm);
+        return (props.searchTerm === "") || unit?.tenant?.name?.toLowerCase().includes(props?.searchTerm?.toLowerCase()) || unit?.name?.toLowerCase().includes(props?.searchTerm?.toLowerCase()) || findStatus(unit)?.toLowerCase().includes(props?.searchTerm?.toLowerCase())
+      }).map(
         (unit, index) =>
-          termFound(unit) && (
-            <div key={unit.id} className="custom-table__row">
-              <div>
-                <div className="row-item">{index + 1}</div>
+          (
+            <tr key={unit.id} className="tr--container">
+                <td >{index + 1}</td>
 
-                <div className="row-item">{unit.tenant.name}</div>
+                <td >{unit.name}</td>
 
-                <div className="row-item">{unit.name}</div>
+                <td >{unit.tenant.name}</td>
 
-                <div className="row-item">
+                <td >
                   {showDate(unit.next_payment_date)}
-                </div>
+                </td>
 
-                <div className="row-item">{unit.annual_fee}</div>
+                <td >{unit.annual_fee}</td>
 
-                <div
-                  className={`row-item ${
+                <td
+                  className={`${
                     findStatus(unit) == "Due" ? `` : `status`
                   }`}
                   style={
@@ -81,20 +64,19 @@ const ListingTableRow = (props) => {
                   // }`}
                 >
                   {findStatus(unit)}
-                </div>
-                <div
-                  className="row-item view"
+                </td>
+                <td
+                  className="view"
                   onClick={() => {
                     navigate("/tenants/viewTenant?id=" + unit.tenant.id);
                   }}
                 >
-                  View
-                </div>
-              </div>
-            </div>
+                  <button>View</button>
+                </td>
+              </tr>
           )
       )}
-    </div>
+    </tbody>
   );
 };
 

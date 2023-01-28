@@ -20,26 +20,26 @@ const ListingTableRow = (props) => {
     if (
       transaction?.tenant?.name
         ?.toLowerCase()
-        .includes(props.searchTerm.toLowerCase())
+        .includes(props?.searchTerm?.toLowerCase())
     ) {
       return true;
     }
     if (
       transaction?.unit?.name
         ?.toLowerCase()
-        .includes(props.searchTerm.toLowerCase())
+        .includes(props?.searchTerm?.toLowerCase())
     ) {
       return true;
     }
     if (
-      transaction?.type?.toLowerCase().includes(props.searchTerm.toLowerCase())
+      transaction?.type?.toLowerCase().includes(props?.searchTerm?.toLowerCase())
     ) {
       return true;
     }
     if (
       showDate(transaction?.created_at)
-        .toLowerCase()
-        .includes(props.searchTerm.toLowerCase())
+        ?.toLowerCase()
+        .includes(props?.searchTerm?.toLowerCase())
     ) {
       return true;
     }
