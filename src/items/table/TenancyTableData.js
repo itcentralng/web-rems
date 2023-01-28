@@ -2,7 +2,7 @@ import "./tr.css";
 import DummyData from "../../DashboardData";
 import { useGetPropertyListingQuery } from "../../renderedPages/properties/propertyApiSlice";
 import { property } from "lodash";
-const TableRow = () => {
+const TableRow = (props) => {
   const { data: properties, isLoading: propertiesLoading } = useGetPropertyListingQuery();
   const calculateRent = (units) => {
     let rent = 0;
@@ -22,7 +22,7 @@ const TableRow = () => {
   return (
     propertiesLoading ? <h1 className='title'>Loading all properties....</h1> :
     <tbody className="body">
-      {properties?.map((property, index) => (
+      {properties?.filter((property)=>{return property?.name?.toLowerCase()?.includes(props.searchTerm) || property?.agent?.name?.toLowerCase()?.includes(props.searchTerm)})?.map((property, index) => (
         <tr key={property.id} className="tr--container">
           <td data-label="S/N">{index+1}</td>
           <td data-label="Property">{property.name}</td>
