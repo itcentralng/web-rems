@@ -1,13 +1,18 @@
-import "./Receipt.css";
+import "./Invoice.css";
 import RightNav from "../../../component/rightNav/RightNav";
-import { useNavigate } from "react-router-dom";
-import { useGetSingleTransactionQuery } from "../tenantApiSlice";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useGetAccountQuery } from "../../settings/accountApiSlice";
 import homeIcon from '../../../assets/home.png'
+import { useEffect, useState } from "react";
+import Popup from "../../../component/popup/Popup"
 
-const invoice = () => {
-  const params = new URLSearchParams(window.location.search);
-  const transactionId = params.get("id");
-  const { data: transaction, isLoading: transactionLoading } = useGetSingleTransactionQuery(transactionId)
+const Invoice = () => {
+  const location = useLocation();
+  const unit = location?.state?.unit;
+  const tenant = location?.state?.tenant;
+  const amount = location?.state?.amount;
+  const { data: account, isLoading: accountLoading } = useGetAccountQuery();
+  const [rentPeriod, setRentPeriod] = useState("");
   const navigate = useNavigate();
 
   const showDate = (date) => {
@@ -27,9 +32,8 @@ const invoice = () => {
   };
 
 
-
   return (
-    transactionLoading ? <h1 className='title'>Loading transaction....</h1> :
+    accountLoading ? <h1 className='title'>Loading transaction....</h1> :
     <div className="listing narrow-page">
       <div className="top-header">
         <span></span>
@@ -44,7 +48,7 @@ const invoice = () => {
         <div class="page-content container">
             <div class="page-header text-blue-d2">
                 <h1 class="page-title text-secondary-d1">
-                    INVOICE ID: #{transaction?.id}
+                    Invoice
 
                     <small class="page-info">
                         <i class="fa fa-angle-double-right text-80"></i>
@@ -141,10 +145,9 @@ const invoice = () => {
                                 </svg>
 
                                 <div class="text-center text-150">
-                                    <h2 class="text-default-d3"><strong>AD BASHARU PROPERTIES</strong></h2>
+                                    <h2 class="text-default-d3"><strong>{account.company}</strong></h2>
                                 </div>
                                 <h2 class="text-default-d3">
-                                    INVOICE ID: #{transaction?.id}
 
                                     <small class="page-info">
                                         <i class="fa fa-angle-double-right text-80"></i>
@@ -160,25 +163,24 @@ const invoice = () => {
                             <div class="col-sm-6">
                                 <div>
                                     <span class="text-sm text-grey-m2 align-middle">To:</span>
-                                    <span class="text-600 text-110 text-blue align-middle">{transaction?.tenant?.name}</span>
+                                    <span class="text-600 text-110 text-blue align-middle">{tenant?.name}</span>
                                 </div>
                                 <div class="text-grey-m2">
-                                    <span class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">{transaction?.tenant?.phone}</b></span>
+                                    <span class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">{tenant?.phone}</b></span>
                                 </div>
                             </div>
 
                             <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
                                 <hr class="d-sm-none" />
                                 <div class="text-grey-m2">
-                                    <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
-                                        Invoice
-                                    </div>
+                                    
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Rent Period: {rentPeriod}</span> </div>
 
-                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID: #{transaction?.id}</span> </div>
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Due date: {showDate(unit.next_payment_date)}</span> </div>
 
-                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date: {showDate(transaction?.created_at)}</span></div>
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date: {showDate(null)}</span></div>
 
-                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-success badge-pill px-25">{transaction?.type?.toUpperCase()} PAYMENT</span></div>
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-success badge-pill px-25">Invoice</span></div>
                                 </div>
                             </div>
                         </div>
@@ -186,8 +188,8 @@ const invoice = () => {
                         <div class="mt-4">
                             <div class="row text-600 text-white bgc-default-tp1 py-25">
                                 <div class="d-none d-sm-block col-1">#</div>
-                                <div class="col-9 col-sm-5">Description</div>
-                                <div class="d-none d-sm-block col-4 col-sm-2">Qty</div>
+                                <div class="col-9 col-sm-5">Property</div>
+                                <div class="d-none d-sm-block col-4 col-sm-2">Unit</div>
                                 <div class="d-none d-sm-block col-sm-2">Unit Price</div>
                                 <div class="col-2">Amount</div>
                             </div>
@@ -200,8 +202,8 @@ const invoice = () => {
                             {/* <thead class="bg-none bgc-default-tp1"> */}
                                 <tr class="text-white">
                                     <th class="opacity-2">#</th>
-                                    <th>Description</th>
-                                    <th>Quantity</th>
+                                    <th>Property</th>
+                                    <th>Unit</th>
                                     <th>Unit Price</th>
                                     <th width="140">Amount</th>
                                 </tr>
@@ -209,10 +211,10 @@ const invoice = () => {
                                 <tr></tr>
                                 <tr>
                                     <td><strong>1</strong></td>
-                                    <td><strong>{transaction?.unit.name}</strong></td>
-                                    <td><strong>1</strong></td>
-                                    <td class="text-95"><strong>{showFormatedMoney(transaction?.amount)}</strong></td>
-                                    <td class="text-secondary-d2"><strong>{showFormatedMoney(transaction?.amount)}</strong></td>
+                                    <td><strong>{unit?.property?.name}</strong></td>
+                                    <td><strong>{unit.name}</strong></td>
+                                    <td class="text-95"><strong>{showFormatedMoney(amount)}</strong></td>
+                                    <td class="text-secondary-d2"><strong>{showFormatedMoney(amount)}</strong></td>
                                 </tr> 
                         </table>
                     </div>
@@ -224,8 +226,8 @@ const invoice = () => {
 
                                 <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last" >
                                     <div class="row my-2" style={{display:'flex', alignItems:'center'}}>
-                                        <div class="col-7 text-right">
-                                            SubTotal: {<strong>{showFormatedMoney(transaction?.amount)} </strong>}
+                                        <div class="col-7 ">
+                                            <b>Account Name</b>: {account.account_name}
                                         </div>
                                         <div class="col-5">
                                             <span class="text-120 text-secondary-d1"></span>
@@ -233,8 +235,16 @@ const invoice = () => {
                                     </div>
 
                                     <div class="row my-2 align-items-center bgc-primary-l3 p-2" style={{display:'flex', alignItems:'center'}}>
-                                        <div class="col-7 text-right">
-                                            Total Amount: {<strong>{showFormatedMoney(transaction?.amount)}</strong>}
+                                        <div class="col-7 ">
+                                            <b>Account Number</b>: {account.account_number}
+                                        </div>
+                                        {/* <div class="col-5">
+                                            <span class="text-150 text-success-d3 opacity-2"></span>
+                                        </div> */}
+                                    </div>
+                                    <div class="row my-2 align-items-center bgc-primary-l3 p-2" style={{display:'flex', alignItems:'center'}}>
+                                        <div class="col-7 ">
+                                            <b>Bank</b>: {account.bank}
                                         </div>
                                         {/* <div class="col-5">
                                             <span class="text-150 text-success-d3 opacity-2"></span>
@@ -258,7 +268,7 @@ const invoice = () => {
         <div class="page-content container duplicate">
             <div class="page-header text-blue-d2">
                 <h1 class="page-title text-secondary-d1">
-                    INVOICE ID: #{transaction?.id}
+                    Receipt Due date: {showDate(unit.next_payment_date)}
 
                     <small class="page-info">
                         <i class="fa fa-angle-double-right text-80"></i>
@@ -358,7 +368,7 @@ const invoice = () => {
                                     <h2 class="text-default-d3"><strong>AD BASHARU PROPERTIES</strong></h2>
                                 </div>
                                 <h2 class="text-default-d3">
-                                    INVOICE ID: #{transaction?.id}
+                                    Receipt Due date: {showDate(unit.next_payment_date)}
 
                                     <small class="page-info">
                                         <i class="fa fa-angle-double-right text-80"></i>
@@ -374,25 +384,25 @@ const invoice = () => {
                             <div class="col-sm-6">
                                 <div>
                                     <span class="text-sm text-grey-m2 align-middle">To:</span>
-                                    <span class="text-600 text-110 text-blue align-middle">{transaction?.tenant?.name}</span>
+                                    <span class="text-600 text-110 text-blue align-middle">{tenant?.name}</span>
                                 </div>
                                 <div class="text-grey-m2">
-                                    <span class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">{transaction?.tenant?.phone}</b></span>
+                                    <span class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">{tenant?.phone}</b></span>
                                 </div>
                             </div>
 
                             <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
                                 <hr class="d-sm-none" />
                                 <div class="text-grey-m2">
-                                    <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
-                                        Invoice
-                                    </div>
+                                    
 
-                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID: #{transaction?.id}</span> </div>
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Rent Period: {rentPeriod}</span> </div>
+                                    
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Due date: {showDate(unit.next_payment_date)}</span> </div>
 
-                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date: {showDate(transaction?.created_at)}</span></div>
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date: {showDate(null)}</span></div>
 
-                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-success badge-pill px-25">{transaction?.type?.toUpperCase()} PAYMENT</span></div>
+                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-success badge-pill px-25">INVOICE</span></div>
                                 </div>
                             </div>
                         </div>
@@ -400,8 +410,8 @@ const invoice = () => {
                         <div class="mt-4">
                             <div class="row text-600 text-white bgc-default-tp1 py-25">
                                 <div class="d-none d-sm-block col-1">#</div>
-                                <div class="col-9 col-sm-5">Description</div>
-                                <div class="d-none d-sm-block col-4 col-sm-2">Qty</div>
+                                <div class="col-9 col-sm-5">Property</div>
+                                <div class="d-none d-sm-block col-4 col-sm-2">Unit</div>
                                 <div class="d-none d-sm-block col-sm-2">Unit Price</div>
                                 <div class="col-2">Amount</div>
                             </div>
@@ -414,8 +424,8 @@ const invoice = () => {
                             <thead class="bg-none bgc-default-tp1">
                                 <tr class="text-white">
                                     <th class="opacity-2">#</th>
-                                    <th>Description</th>
-                                    <th>Qty</th>
+                                    <th>Property</th>
+                                    <th>Unit</th>
                                     <th>Unit Price</th>
                                     <th width="140">Amount</th>
                                 </tr>
@@ -425,10 +435,10 @@ const invoice = () => {
                                 <tr></tr>
                                 <tr>
                                     <td><strong>1</strong></td>
-                                    <td><strong>{transaction?.unit.name}</strong></td>
-                                    <td><strong>1</strong></td>
-                                    <td class="text-95"><strong>{showFormatedMoney(transaction?.amount)}</strong></td>
-                                    <td class="text-secondary-d2"><strong>{showFormatedMoney(transaction?.amount)}</strong></td>
+                                    <td><strong>{unit?.property?.name}</strong></td>
+                                    <td><strong>{unit.name}</strong></td>
+                                    <td class="text-95"><strong>{showFormatedMoney(amount)}</strong></td>
+                                    <td class="text-secondary-d2"><strong>{showFormatedMoney(amount)}</strong></td>
                                 </tr> 
                             </tbody>
                         </table>
@@ -441,8 +451,8 @@ const invoice = () => {
 
                                 <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last" >
                                     <div class="row my-2" style={{display:'flex', alignItems:'center'}}>
-                                        <div class="col-7 text-right">
-                                            SubTotal: {showFormatedMoney(transaction?.amount)}
+                                        <div class="col-7 ">
+                                            <b>Account Name</b>: {account.account_name}
                                         </div>
                                         <div class="col-5">
                                             <span class="text-120 text-secondary-d1"></span>
@@ -450,8 +460,16 @@ const invoice = () => {
                                     </div>
 
                                     <div class="row my-2 align-items-center bgc-primary-l3 p-2" style={{display:'flex', alignItems:'center'}}>
-                                        <div class="col-7 text-right">
-                                            Total Amount: {showFormatedMoney(transaction?.amount)}
+                                        <div class="col-7 ">
+                                            <b>Account Number</b>: {account.account_number}
+                                        </div>
+                                        {/* <div class="col-5">
+                                            <span class="text-150 text-success-d3 opacity-2"></span>
+                                        </div> */}
+                                    </div>
+                                    <div class="row my-2 align-items-center bgc-primary-l3 p-2" style={{display:'flex', alignItems:'center'}}>
+                                        <div class="col-7 ">
+                                            <b>Bank</b>: {account.bank}
                                         </div>
                                         {/* <div class="col-5">
                                             <span class="text-150 text-success-d3 opacity-2"></span>
@@ -471,8 +489,9 @@ const invoice = () => {
                 </div>
             </div>
         </div>
+        {!rentPeriod && <Popup content={{rentPeriod:true}} setRentPeriod={setRentPeriod} />}
     </div>
   );
 };
 
-export default invoice;
+export default Invoice;

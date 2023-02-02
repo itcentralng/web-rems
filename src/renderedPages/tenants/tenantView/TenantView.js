@@ -84,6 +84,16 @@ const TenantView = () => {
     }
   };
 
+  const generateInvoice = ()=>{
+    navigate("/tenants/invoice", {
+      state: {
+      unit: unit,
+      tenant: tenant,
+      amount: amount,
+    },
+      })
+  }
+
   // update amount
   const updateAmount = (amount) =>{
     if (unit?.recent_payment?.amount){
@@ -142,64 +152,6 @@ const TenantView = () => {
       </div>
       {createTransactionLoading? <div className="loader">Processing payment please wait...</div> :
       <div className="form-container">
-      <h1 className="title">Generate Invoice</h1>
-      <form onSubmit={makePayment} className="form__control">
-        <div className={''}>
-            <label htmlFor='name' className="label">
-              Unit
-            </label>
-            <select className="select" value={unit.id} onChange={(e) => setUnitId(e.target.value)}>
-              {tenantLoading ? (
-                <option className="option" value=''>Loading...</option>
-              ) : (
-                tenant?.units?.map((unit) => (
-                  <option className="option" key={unit.id} value={unit.id}>
-                    {`${unit.name.toUpperCase()}`}
-                  </option>
-                ))
-              )}
-            </select>
-        </div>
-        <div className={''}>
-          <label htmlFor='number' className="label">
-            Annual Fee
-          </label>
-          <input
-            className="input"
-            type='number'
-            name='annual_fee'
-            value={`${unit?.annual_fee}`}
-            readOnly={true}
-          />
-        </div>
-        <div className={''}>
-          <label htmlFor='number' className="label">
-            Amount
-          </label>
-          <input
-            className="input"
-            type='number'
-            name='amount'
-            value={`${amount}`}
-            onChange={(e) => updateAmount(e.target.value)}
-            placeholder='Enter Amount to pay'
-          />
-        </div>
-        <div className={''}>
-          <label htmlFor='date' className="label">
-            Next Payment
-          </label>
-          <input
-            className="input"
-            type='date'
-            name='next_payment_date'
-            value={`${unit?.next_payment_date}`}
-            onChange={(e) => setUnit({...unit, next_payment_date: e.target.value})}
-          />
-        </div>
-
-        {isDue() && !isPaid  ? <button className="submit">Make Payment</button>: ''}
-      </form>
       <h1 className="title">Accept Payment</h1>
       <form onSubmit={makePayment} className="form__control">
         <div className={''}>
@@ -256,7 +208,7 @@ const TenantView = () => {
           />
         </div>
 
-        {isDue() && !isPaid  ? <button className="submit">Make Payment</button>: ''}
+        {isDue() && !isPaid  ? <><button className="submit">Make Payment</button> <br/><a className="submit" onClick={generateInvoice}>Generate Invoice</a></>: <><br/><br/><br/><a className="submit" onClick={generateInvoice}>Generate Invoice</a></> }
       </form>
       </div>
       }

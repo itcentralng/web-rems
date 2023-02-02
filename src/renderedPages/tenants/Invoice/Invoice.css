@@ -32,3 +32,51 @@ a {
 a:hover {
     color: #0066cc;
 }
+.logo {
+    width: 4.5rem;
+    height: 4.7rem;
+}
+span{
+    font-size: 1.5rem !important;
+}
+.narrow-page tr{
+    border-bottom: .5rem solid #052959;
+}
+a.btn{
+    font-size: 2rem;
+    padding: 0.5rem 3rem;
+    /* margin-bottom: 1rem; */
+}
+td{
+    padding: 1.5rem 0rem !important;
+}
+.duplicate{
+    display: none;
+}
+
+@media print {
+    .duplicate{
+        display: block;
+        border-top:3px dashed black;
+        margin-top: 10rem;
+    }
+    .narrow-page {
+        width: 100% !important;
+        margin: 0 auto !important;
+        border: none!important;
+    }
+    .right-nav, .action-buttons {
+        display: none;
+    }
+    .page-header{
+        margin: 2rem 0rem;
+    }
+    .badge-success {
+        color: #fff;
+        background-color: #28a745;
+    }
+    a.btn{
+        display:none
+    }
+    
+}

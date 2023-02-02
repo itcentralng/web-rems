@@ -5,6 +5,7 @@ import {
   Transactions,
   Properties,
   Tenants,
+  Settings,
 } from "../../renderedPages";
 import { Route, Routes } from "react-router-dom";
 import AddProperty from "../../renderedPages/properties/addProperty/AddProperty";
@@ -15,12 +16,14 @@ import ViewUnit from "../../renderedPages/properties/viewUnit/ViewUnit";
 import TenantView from "../../renderedPages/tenants/tenantView/TenantView";
 import AddTenant from "../../renderedPages/tenants/AddTenant";
 import Receipt from "../../renderedPages/tenants/Receipt/Receipt";
+import Invoice from "../../renderedPages/tenants/Invoice/Invoice";
 
 const Main = () => {
   return (
     <div>
       <Routes>
         <Route path='/' element={<Dashboard />} />
+        <Route path='/settings' element={<Settings />} />
         <Route path='/agents' element={<Agents />} />
         <Route path='/agents/addAgent' element={<AddAgent />} />
 
@@ -35,6 +38,7 @@ const Main = () => {
         <Route path='/tenants/viewTenant' element={<TenantView />} />
         <Route path='/tenants/addTenant' element={<AddTenant />} />
         <Route path='/tenants/transaction' element={<Receipt />} />
+        <Route path='/tenants/invoice' element={<Invoice />} />
       </Routes>
     </div>
   );

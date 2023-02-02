@@ -3,8 +3,10 @@ import "./popup.css";
 import { useNavigate } from "react-router-dom";
 import classes from "../../renderedPages/tenants/addTenantPopup.module.css";
 import { useCreateTenantMutation } from "../../renderedPages/tenants/tenantApiSlice";
+import { Properties } from "../../renderedPages";
 
-const Popup = ({ success, error, content, close }) => {
+const Popup = ({ success, error, content, close, setRentPeriod }) => {
+  const [period, setPeriod] = useState("");
   const isEmpty = (value) => value.trim() === "";
 const isNumber = (value) => value.trim().length >= 10;
 const isEmail = (value) => value.includes("@");
@@ -111,7 +113,27 @@ const isEmail = (value) => value.includes("@");
         </div>
         <button className={classes.submit}>Add Tenant</button>
       </form>
-          </div>:''
+          </div>: content.rentPeriod? 
+          <form onSubmit={()=>{setRentPeriod(period)}} className={classes.form__control}>
+          <div className={classes.inputs}>
+            <div className={""}>
+              <label htmlFor="name" className={classes.label}>
+                Rent Period
+              </label>
+              <input
+                className={classes.input}
+                type="text"
+                name="rentPeriod"
+                value={period}
+                onChange={(e) => setPeriod(e.target.value )}
+                placeholder="Enter Rent Period"
+              />
+              {!isEmpty(period) && <p>Rent Period field cannot be empty</p>}
+            </div>
+          </div>
+          <button className={classes.submit}>Save Rent Period</button>
+        </form>
+          :''
         }
         </div>
       </div>

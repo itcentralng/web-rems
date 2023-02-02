@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 const App = () => {
   const [showNav, setShowNav] = useState(false);
   const location = useLocation();
-  const showMain = location.pathname.includes("/tenants/transaction");
+  const showMain = location.pathname.includes("/tenants/transaction") || location.pathname.includes("/tenants/invoice");
   // const [popupError, setPopupError] = useState(true);
 
   return (
