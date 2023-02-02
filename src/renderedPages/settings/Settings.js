@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import RightNav from "../../../component/rightNav/RightNav";
-import "./tenantView.css";
+import "./settings.css";
 import { useGetSingleTenantQuery, useUpdateTenantMutation, useDeleteTenantMutation, useCreateTransactionMutation } from "../tenantApiSlice";
 import { useGetSingleUnitQuery } from "../../properties/propertyApiSlice";
 import { useNavigate } from "react-router-dom";

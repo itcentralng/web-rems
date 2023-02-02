@@ -16,8 +16,8 @@ const Dashboard = () => {
         <span></span>
         <RightNav
           button
-          buttonText='Report'
-          onClick={() => navigate("/transactions")}
+          buttonText='Settings'
+          onClick={() => navigate("/settings")}
         />
       </div>
       <h1 className='title'>Dashboard</h1>
