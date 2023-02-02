@@ -254,6 +254,7 @@ const invoice = () => {
                 </div>
             </div>
         </div>
+        {/*  duplicate invoice to be seen at print media only        */}
         <div class="page-content container duplicate">
             <div class="page-header text-blue-d2">
                 <h1 class="page-title text-secondary-d1">
