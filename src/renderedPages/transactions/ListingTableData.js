@@ -66,7 +66,8 @@ const ListingTableRow = (props) => {
                 <button
                   className="view--button"
                   onClick={() => {
-                    navigate("/tenants/transaction?id=" + transaction.id);
+                    console.log(transaction)
+                    navigate('/tenants/transaction?transactionId='+transaction.id+'&unitId='+transaction.unit.id+'&propertyId='+transaction.unit.property_id);
                   }}
                 >
                   View

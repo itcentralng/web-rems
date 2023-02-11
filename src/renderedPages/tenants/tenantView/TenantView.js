@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import RightNav from "../../../component/rightNav/RightNav";
 import "./tenantView.css";
 import { useGetSingleTenantQuery, useUpdateTenantMutation, useDeleteTenantMutation, useCreateTransactionMutation } from "../tenantApiSlice";
-import { useGetSingleUnitQuery } from "../../properties/propertyApiSlice";
+import { useGetSingleUnitQuery, useGetSinglePropertyQuery } from "../../properties/propertyApiSlice";
 import { useNavigate } from "react-router-dom";
 import ListingTable from "./ListingTable";
 const TenantView = () => {
@@ -11,17 +11,19 @@ const TenantView = () => {
 
   const [editableTenant, setEditableTenant] = useState({id:0, name:'', email:'', phone:'', work_address:'', home_address:'', state:'', lga:'', image: ''});
   const [ unitId, setUnitId ] = useState(0);
-  const [ unit, setUnit ] = useState({id:0, name:'', annual_fee:0, next_payment_date:'', tenant_id:0});
+  const [ propertyId, setPropertyId ] = useState(0);
+  const [ unit, setUnit ] = useState({id:0, name:'', annual_fee:0, next_payment_date:'', tenant_id:0, property_id:0});
   const [ amount, setAmount ] = useState(0);
   const [ isPaid, setIsPaid ] = useState(false);
   const [ paymentDate, setPaymentDate ] = useState('');
 
   const { data: tenant, isLoading: tenantLoading } = useGetSingleTenantQuery(tenantId)
   const { data: singleunit, isLoading: singleunitLoading } = useGetSingleUnitQuery(unitId)
+  const { data: singleproperty, isLoading: singlepropertyLoading } = useGetSinglePropertyQuery(propertyId)
   const [updateTenant, { isLoading: updateTenantLoading }] = useUpdateTenantMutation();
   const [deleteTenant, { isLoading: deleteTenantLoading }] = useDeleteTenantMutation();
   const [createTransaction, { isLoading: createTransactionLoading }] = useCreateTransactionMutation();
-  
+
   
   const isDue = () => {
     const today = new Date();
@@ -42,11 +44,12 @@ const TenantView = () => {
     if (tenant) {
       setEditableTenant({id:tenant?.id, name:tenant?.name, phone:tenant?.phone});
       setUnitId(tenant?.units[0]?.id);
+      setPropertyId(tenant?.units[0]?.property_id);
     }
   }, [tenantLoading]);
 
   useEffect(() => {
-    setUnit({id:singleunit?.id, name:singleunit?.name, annual_fee:singleunit?.annual_fee, next_payment_date:singleunit?.next_payment_date, tenant_id:singleunit?.tenant_id});
+    setUnit({id:singleunit?.id, name:singleunit?.name, annual_fee:singleunit?.annual_fee, next_payment_date:singleunit?.next_payment_date, tenant_id:singleunit?.tenant_id, property_id:singleunit?.property_id});
     setAmount(singleunit?.recent_payment?.amount? singleunit?.annual_fee-singleunit?.recent_payment?.amount : singleunit?.annual_fee);
     setPaymentDate(singleunit?.next_payment_date);
   }, [singleunitLoading, unitId]);
@@ -73,7 +76,7 @@ const TenantView = () => {
         console.log(res)
         if (res?.data?.id) {
             setIsPaid(true)
-            navigate('/tenants/transaction?id='+res?.data?.id)
+            navigate('/tenants/transaction?transactionId='+res?.data?.id+'&unitId='+unit?.id+'&propertyId='+unit?.property_id)
         }else{
             alert('Payment failed')
         }
@@ -87,6 +90,7 @@ const TenantView = () => {
   const generateInvoice = ()=>{
     navigate("/tenants/invoice", {
       state: {
+      property: singleproperty,
       unit: unit,
       tenant: tenant,
       amount: amount,

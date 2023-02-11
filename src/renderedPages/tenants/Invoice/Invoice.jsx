@@ -9,6 +9,7 @@ import Popup from "../../../component/popup/Popup"
 const Invoice = () => {
   const location = useLocation();
   const unit = location?.state?.unit;
+  const property = location?.state?.property;
   const tenant = location?.state?.tenant;
   const amount = location?.state?.amount;
   const { data: account, isLoading: accountLoading } = useGetAccountQuery();
@@ -211,7 +212,7 @@ const Invoice = () => {
                                 <tr></tr>
                                 <tr>
                                     <td><strong>1</strong></td>
-                                    <td><strong>{unit?.property?.name}</strong></td>
+                                    <td><strong>{property?.name}</strong></td>
                                     <td><strong>{unit.name}</strong></td>
                                     <td class="text-95"><strong>{showFormatedMoney(amount)}</strong></td>
                                     <td class="text-secondary-d2"><strong>{showFormatedMoney(amount)}</strong></td>
@@ -434,7 +435,7 @@ const Invoice = () => {
                                 <tr></tr>
                                 <tr>
                                     <td><strong>1</strong></td>
-                                    <td><strong>{unit?.property?.name}</strong></td>
+                                    <td><strong>{property?.name}</strong></td>
                                     <td><strong>{unit.name}</strong></td>
                                     <td class="text-95"><strong>{showFormatedMoney(amount)}</strong></td>
                                     <td class="text-secondary-d2"><strong>{showFormatedMoney(amount)}</strong></td>

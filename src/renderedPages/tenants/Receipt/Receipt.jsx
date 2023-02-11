@@ -2,12 +2,18 @@ import "./Receipt.css";
 import RightNav from "../../../component/rightNav/RightNav";
 import { useNavigate } from "react-router-dom";
 import { useGetSingleTransactionQuery } from "../tenantApiSlice";
+import { useGetSingleUnitQuery, useGetSinglePropertyQuery } from "../../properties/propertyApiSlice";
 import homeIcon from '../../../assets/home.png'
+import { useEffect, useState } from "react";
 
 const Receipt = () => {
   const params = new URLSearchParams(window.location.search);
-  const transactionId = params.get("id");
+  const transactionId = params.get("transactionId");
+  const unitId = params.get("unitId");
+  const propertyId = params.get("propertyId");
   const { data: transaction, isLoading: transactionLoading } = useGetSingleTransactionQuery(transactionId)
+  const { data: unit, isLoading: unitLoading } = useGetSingleUnitQuery(unitId)
+  const { data: property, isLoading: propertyLoading } = useGetSinglePropertyQuery(propertyId)
   const navigate = useNavigate();
 
   const showDate = (date) => {
@@ -186,8 +192,8 @@ const Receipt = () => {
                         <div class="mt-4">
                             <div class="row text-600 text-white bgc-default-tp1 py-25">
                                 <div class="d-none d-sm-block col-1">#</div>
-                                <div class="col-9 col-sm-5">Description</div>
-                                <div class="d-none d-sm-block col-4 col-sm-2">Qty</div>
+                                <div class="col-9 col-sm-5">Property</div>
+                                <div class="d-none d-sm-block col-4 col-sm-2">Unit</div>
                                 <div class="d-none d-sm-block col-sm-2">Unit Price</div>
                                 <div class="col-2">Amount</div>
                             </div>
@@ -200,8 +206,8 @@ const Receipt = () => {
                             {/* <thead class="bg-none bgc-default-tp1"> */}
                                 <tr class="text-white">
                                     <th class="opacity-2">#</th>
-                                    <th>Description</th>
-                                    <th>Quantity</th>
+                                    <th>Property</th>
+                                    <th>Unit</th>
                                     <th>Unit Price</th>
                                     <th width="140">Amount</th>
                                 </tr>
@@ -209,8 +215,8 @@ const Receipt = () => {
                                 <tr></tr>
                                 <tr>
                                     <td><strong>1</strong></td>
+                                    <td><strong>{property?.name}</strong></td>
                                     <td><strong>{transaction?.unit.name}</strong></td>
-                                    <td><strong>1</strong></td>
                                     <td class="text-95"><strong>{showFormatedMoney(transaction?.amount)}</strong></td>
                                     <td class="text-secondary-d2"><strong>{showFormatedMoney(transaction?.amount)}</strong></td>
                                 </tr> 
@@ -401,8 +407,8 @@ const Receipt = () => {
                         <div class="mt-4">
                             <div class="row text-600 text-white bgc-default-tp1 py-25">
                                 <div class="d-none d-sm-block col-1">#</div>
-                                <div class="col-9 col-sm-5">Description</div>
-                                <div class="d-none d-sm-block col-4 col-sm-2">Qty</div>
+                                <div class="col-9 col-sm-5">Property</div>
+                                <div class="d-none d-sm-block col-4 col-sm-2">Unit</div>
                                 <div class="d-none d-sm-block col-sm-2">Unit Price</div>
                                 <div class="col-2">Amount</div>
                             </div>
@@ -415,8 +421,8 @@ const Receipt = () => {
                             <thead class="bg-none bgc-default-tp1">
                                 <tr class="text-white">
                                     <th class="opacity-2">#</th>
-                                    <th>Description</th>
-                                    <th>Qty</th>
+                                    <th>Property</th>
+                                    <th>Unit</th>
                                     <th>Unit Price</th>
                                     <th width="140">Amount</th>
                                 </tr>
@@ -426,8 +432,8 @@ const Receipt = () => {
                                 <tr></tr>
                                 <tr>
                                     <td><strong>1</strong></td>
+                                    <td><strong>{property?.name}</strong></td>
                                     <td><strong>{transaction?.unit.name}</strong></td>
-                                    <td><strong>1</strong></td>
                                     <td class="text-95"><strong>{showFormatedMoney(transaction?.amount)}</strong></td>
                                     <td class="text-secondary-d2"><strong>{showFormatedMoney(transaction?.amount)}</strong></td>
                                 </tr> 
